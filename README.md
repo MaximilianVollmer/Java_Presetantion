@@ -30,7 +30,7 @@ git config --global push.autoSetupRemote true
 \
 Create a new branch from develop
 ```
-git checkout -b <branch-name> d
+git checkout -b <branch-name> develop
 ```
 You can now work from the new branch
 \
