@@ -39,6 +39,8 @@ To get changes onto the remote repository
 ```
 git add .
 // . means "add all new files", git add README.md targets only the README file
+git status
+// lets you see wich data is getting changed/deleted/added
 git commit -m "Some Commit Message"
 // Make commit, it's like saving the changes to git
 git push 
