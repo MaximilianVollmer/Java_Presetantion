@@ -2,7 +2,7 @@
 This project is build for our presentation in our OOP-Course. Contributors are Markus, Hasan and Maximilian.
 
 The goal of this project is to be a mock of a personal planer software, where we show the basic features with the topics we covered in our Java lectures.
-## Content: <hr>
+## Content: 
 <ul>
     <li>Shopping List</li>
     <li>Calender</li>
