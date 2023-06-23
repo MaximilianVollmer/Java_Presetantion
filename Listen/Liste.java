@@ -1,5 +1,6 @@
 package Java_Presetantion.Listen;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import Java_Presetantion.Listen.Listentypen.Aufgaben;
 import Java_Presetantion.Listen.Listentypen.Einkaufsitems;
@@ -55,6 +56,27 @@ public class Liste{
     }
 
     public static void main(String[] args) {
-        
+        Liste list = new Liste();
+
+        System.out.println("[1] Öffne die Einkaufsliste\n[2] Öffne Aufgabenliste\n[3] Öffne Kontaktbuch \n[4] Öffne Notizbuch");
+
+        Scanner new_scan = new Scanner(System.in);
+        String new_action = new_field.nextLine();
+        switch(String.valueOf(new_action)){
+            case "1":
+                System.out.println(list.Einkaufliste);
+                break;
+            case"2":
+                System.out.println(list.Aufgabenliste);
+                break;
+            case"3":
+                System.out.println(list.Kontaktbuch);
+                break;
+            case"4":
+                System.out.println(list.Notizbuch);
+                break;
+            default:
+                System.out.println("Bitte geben sie nur einen der oben genannten Werte ein.");
+        }
     }
 }
