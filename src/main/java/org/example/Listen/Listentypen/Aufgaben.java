@@ -1,4 +1,4 @@
-package Java_Presetantion.Listen.Listentypen;
+package org.example.Listen.Listentypen;
 
 public class Aufgaben {
     public int importance;
