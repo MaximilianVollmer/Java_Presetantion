@@ -1,11 +1,11 @@
-package Java_Presetantion.Listen;
+package org.example.Listen;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import Java_Presetantion.Listen.Listentypen.Aufgaben;
-import Java_Presetantion.Listen.Listentypen.Einkaufsitems;
-import Java_Presetantion.Listen.Listentypen.Kontakte;
-import Java_Presetantion.Listen.Listentypen.Notizen;
+import org.example.Listen.Listentypen.Aufgaben;
+import org.example.Listen.Listentypen.Einkaufsitems;
+import org.example.Listen.Listentypen.Kontakte;
+import org.example.Listen.Listentypen.Notizen;
 
 public class Liste{
 
@@ -29,13 +29,13 @@ public class Liste{
         this.Aufgabenliste.add(item);
     }
 
-    void newContact(String name, int importance, String description){
-        Kontakte item = new Kontakte(importance, name, description);
+    void newContact(String first_name, String last_name, int tel_number){
+        Kontakte item = new Kontakte(first_name, last_name, tel_number);
         this.Kontaktbuch.add(item);
     }
 
-    void newNote(String name, int importance, String description){
-        Notizen item = new Notizen(importance, name, description);
+    void newNote(String name, String description){
+        Notizen item = new Notizen(name, description);
         this.Notizbuch.add(item);
     }
 
@@ -61,7 +61,7 @@ public class Liste{
         System.out.println("[1] Öffne die Einkaufsliste\n[2] Öffne Aufgabenliste\n[3] Öffne Kontaktbuch \n[4] Öffne Notizbuch");
 
         Scanner new_scan = new Scanner(System.in);
-        String new_action = new_field.nextLine();
+        String new_action = new_scan.nextLine();
         switch(String.valueOf(new_action)){
             case "1":
                 System.out.println(list.Einkaufliste);
@@ -78,5 +78,6 @@ public class Liste{
             default:
                 System.out.println("Bitte geben sie nur einen der oben genannten Werte ein.");
         }
+        new_scan.close();
     }
 }
