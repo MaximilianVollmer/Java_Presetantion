@@ -13,4 +13,9 @@ public class Einkaufsitems {
         this.description = description;
         this.category = category;
     }
+
+    public String get_informations(){
+        String info = this.name+this.amount;
+        return info;
+    }
 }
