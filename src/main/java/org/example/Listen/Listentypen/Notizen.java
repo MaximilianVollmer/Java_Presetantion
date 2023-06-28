@@ -1,7 +1,6 @@
 package org.example.Listen.Listentypen;
 
-public class Notizen {
-    public String name;
+public class Notizen extends Liestentyp{
     public String informations;
 
     public Notizen(String name, String informations){
