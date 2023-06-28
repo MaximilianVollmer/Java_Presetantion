@@ -1,8 +1,7 @@
 package org.example.Listen.Listentypen;
 
-public class Einkaufsitems {
+public class Einkaufsitems extends Liestentyp{
 
-    public String name;
     public int amount;
     public String description;
     public String category;
@@ -15,7 +14,7 @@ public class Einkaufsitems {
     }
 
     public String get_informations(){
-        String info = this.name+this.amount;
+        String info = "Name: "+this.name +"\nAnzahl: "+this.amount;
         return info;
     }
 }
