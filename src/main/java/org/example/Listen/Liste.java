@@ -42,7 +42,7 @@ public class Liste{
         Listentyp item = new Notizen(name, description);
         this.Notizbuch.add(item);
     }
-
+    
     /**
      * Asks the client what he wants to do with the data.
      * Does it or connects to the function wich does it.
@@ -200,6 +200,7 @@ public class Liste{
                         new_scan.close();
                         break;
                     case "1":
+                        System.out.println(list.Einkaufsliste.getClass().getName());
                         list.scanner_case(list, list.Einkaufsliste,"Einkaufsliste");
                         break;
                     case"2":
