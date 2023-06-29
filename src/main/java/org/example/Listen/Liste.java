@@ -22,8 +22,7 @@ public class Liste{
         this.Einkaufsliste.add(test2);
         //Hier muss er aus der JSON-Datei die Notizen, Aufgaben, usw. auslesen und dann in die jeweilige Variable einspeichern
     }
-
-    // Kann man evt. noch mit ner switch case und den Objectkeys vereinfachen.
+    
     public void newItem(String name, int amount, String description, String category){
         Listentyp item = new Einkaufsitems(name, amount, description, category);
         this.Einkaufsliste.add(item);
@@ -44,29 +43,28 @@ public class Liste{
         this.Notizbuch.add(item);
     }
 
-    public void update_entry(Liste listen, ArrayList<Listentyp> list, int index){
+    public void update_entry(Liste listen, ArrayList<Listentyp> list, int index, String listname){
         System.out.println("[0] Zurück\n[1] Löschen\n[2] Bearbeiten");
         System.out.println(list.get(index).all_informations());
         Scanner scan = new Scanner(System.in);
         String scan_action = scan.nextLine();
         switch(String.valueOf(scan_action)){
             case"0":
-                listen.scanner_case(listen, list);
+                listen.scanner_case(listen, list, listname);
                 break;
             case"1":
                 list.remove(index);
-                listen.scanner_case(listen, list);
+                listen.scanner_case(listen, list, listname);
                 break;
             case"2":
                 //Muss ich noch gucken, wie ich das mache
-                listen.update_entry(listen, list, index);
+                listen.update_entry(listen, list, index, listname);
 
         }
-
-        scan.close();
+        
     }
 
-    public void scanner_case(Liste listen, ArrayList<Listentyp> list){
+    public void scanner_case(Liste listen, ArrayList<Listentyp> list, String listname){
         if(list != null && list.size()!=0){
             System.out.println("[0] Zurück");
             for(int index = 0; index<list.size(); index++){
@@ -78,12 +76,11 @@ public class Liste{
             String action_one = scan_one.nextLine();
             Integer index = Integer.parseInt(String.valueOf(action_one))-1;
             switch(index){
-                case -1:
-                    scan_one.close();
+                case -1:              
+                    listen.main_func(listen);      
                     break;
             }
-            listen.update_entry(listen, list,index);
-            scan_one.close(); 
+            listen.update_entry(listen, list, index, listname);             
         }
         else{
             System.out.println("In dieser Liste sind keine Einträge.");
@@ -95,9 +92,10 @@ public class Liste{
                 case "0":
                     listen.main_func(listen);
                     break;
-                case "1": //Klappt nicht
+                case "1":
                     Scanner add_item = new Scanner(System.in);
-                    switch(list.getClass().getSimpleName()){
+
+                    switch(listname){
                         case "Einkaufsliste":
                             System.out.println("Name: ");
                             String item_name = add_item.next();
@@ -148,19 +146,19 @@ public class Liste{
                             break;
                         default:
                             System.out.println("Das sollte eigentlich nie passieren.");
-                            listen.scanner_case(listen, list);
-                    }
-                    add_item.close();
+                            listen.scanner_case(listen, list, listname);
+                    }                    
                     break;
                 default:
                     System.out.println("Sie müssen schon eine der gennanten Nummern eingeben. Ich schreib die nicht aus Spaß!");
-                    listen.scanner_case(listen, list);
+                    listen.scanner_case(listen, list, listname);
             }
-            scan_one.close();
+            listen.main_func(listen);            
         }
     }
 
     public void saveChanges(Liste listen){
+        System.out.println("So, jetzt sollte der Stuff von den Listen in die JSON-Datei reingepackt werden");
         //Hier muss dann der ganze shit wieder in die JSON-Datei gespeichert werden.
         //Am Besten auch, in dem man nur die Änderungen speichert, aber das wäre wohl nur etwas zusätzliches,
         //Wenn wir noch Zeit dazu haben. Kommt aber darauf an, was die API von dem Ding von Max hergibt. 
@@ -170,31 +168,37 @@ public class Liste{
         System.out.println("[0] Zurück\n[1] Öffne die Einkaufsliste\n[2] Öffne Aufgabenliste\n[3] Öffne Kontaktbuch \n[4] Öffne Notizbuch");
 
         Scanner new_scan = new Scanner(System.in);
-        String new_action = new_scan.nextLine();
-        switch(String.valueOf(new_action)){
-            case "0":
-                list.saveChanges(list);
-                break;
-            case "1":
-                System.out.println(list.Einkaufsliste.getClass().getName());
-                list.scanner_case(list, list.Einkaufsliste);
-                break;
-            case"2":
-                list.scanner_case(list, list.Aufgabenliste);
-                break;
-            case"3":
-                list.scanner_case(list, list.Kontaktbuch);
-                break;
-            case"4":
-                list.scanner_case(list, list.Notizbuch);
-                break;
-            default:
-                System.out.println("Bitte geben sie nur einen der oben genannten Werte ein.");
-                list.main_func(list);
+        try{
+            while(new_scan.hasNextLine()){ 
+                String new_action = new_scan.nextLine();
+                switch(String.valueOf(new_action)){
+                    case "0":
+                        new_scan.close();
+                        break;
+                    case "1":
+                        System.out.println(list.Einkaufsliste.getClass().getName());
+                        list.scanner_case(list, list.Einkaufsliste,"Einkaufsliste");
+                        break;
+                    case"2":
+                        list.scanner_case(list, list.Aufgabenliste,"Aufgabenliste");
+                        break;
+                    case"3":
+                        list.scanner_case(list, list.Kontaktbuch,"Kontaktbuch");
+                        break;
+                    case"4":
+                        list.scanner_case(list, list.Notizbuch,"Notizbuch");
+                        break;
+                    default:
+                        System.out.println("Bitte geben sie nur einen der oben genannten Werte ein.");
+                        list.main_func(list);
+                }
+            }
+        }catch (Exception e) {
+            list.saveChanges(list);
         }
-        new_scan.close();
-    } 
 
+    }
+    
     public static void main(String[] args) {
         Liste list = new Liste();
         list.main_func(list);
