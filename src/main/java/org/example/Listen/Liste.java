@@ -1,4 +1,5 @@
 package org.example.Listen;
+import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -7,6 +8,8 @@ import org.example.Listen.Listentypen.Aufgaben;
 import org.example.Listen.Listentypen.Einkaufsitems;
 import org.example.Listen.Listentypen.Kontakte;
 import org.example.Listen.Listentypen.Notizen;
+import org.json.simple.*;
+import org.json.simple.parser.JSONParser;
 
 public class Liste{
 
@@ -16,6 +19,17 @@ public class Liste{
     public ArrayList<Listentyp> Notizbuch = new ArrayList<Listentyp>();
 
     Liste(){
+        // JSONParser parser = new JSONParser();
+        // try {
+        //     FileReader tester = new FileReader("\\Data\\DATA.json");
+        //     JSONArray test = (JSONArray) parser.parse(tester);
+        //     for(Object o:test){
+        //         JSONObject table = (JSONObject) o;
+        //         System.out.println(table);
+        //     }
+        // } catch (Exception e) {
+        //     System.out.println(e.getMessage());
+        // }
         Listentyp test1 = new Einkaufsitems("Test1", 1, "Das ist ein Test", "Test");
         Listentyp test2 = new Einkaufsitems("Test2", 2, "Das ist noch ein Test", "Test");
         this.Einkaufsliste.add(test1);

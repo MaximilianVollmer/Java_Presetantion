@@ -1,0 +1,8 @@
+{
+    "Table1":{
+        "name": "Test1",
+        "amount": "1",
+        "description": "Das ist ein Test",
+        "category": "Test"
+    }
+}
