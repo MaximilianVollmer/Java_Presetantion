@@ -19,22 +19,29 @@ public class Liste{
     public ArrayList<Listentyp> Notizbuch = new ArrayList<Listentyp>();
 
     Liste(){
-        // JSONParser parser = new JSONParser();
-        // try {
-        //     FileReader tester = new FileReader("\\Data\\DATA.json");
-        //     JSONArray test = (JSONArray) parser.parse(tester);
-        //     for(Object o:test){
-        //         JSONObject table = (JSONObject) o;
-        //         System.out.println(table);
-        //     }
-        // } catch (Exception e) {
-        //     System.out.println(e.getMessage());
-        // }
-        Listentyp test1 = new Einkaufsitems("Test1", 1, "Das ist ein Test", "Test");
-        Listentyp test2 = new Einkaufsitems("Test2", 2, "Das ist noch ein Test", "Test");
-        this.Einkaufsliste.add(test1);
-        this.Einkaufsliste.add(test2);
-        //Hier muss er aus der JSON-Datei die Notizen, Aufgaben, usw. auslesen und dann in die jeweilige Variable einspeichern
+        JSONParser parser = new JSONParser();
+        try {
+            FileReader reader = new FileReader(".\\Data\\DATA.json");
+            JSONArray array = (JSONArray) parser.parse(reader);
+            array.forEach(object -> {
+                JSONObject js_obj = (JSONObject) object;
+                String tableName = "table";
+                try{
+                    JSONObject table = (JSONObject) js_obj.get(tableName);
+                    
+                    String name = (String) table.get("name");
+                    int amount = Integer.parseInt((String) table.get("amount"));
+                    String description = (String) table.get("description");
+                    String category = (String) table.get("category");
+                    Listentyp einkaufsitem = new Einkaufsitems(name, amount, description, category);
+                    this.Einkaufsliste.add(einkaufsitem);
+                }catch(Exception e){
+                    
+                }
+            });
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public void newItem(String name, int amount, String description, String category){
