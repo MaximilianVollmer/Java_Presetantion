@@ -1,5 +1,6 @@
 package org.example.Listen;
 
+
 import java.io.FileReader;
 
 
@@ -14,7 +15,6 @@ import org.example.Listen.Listentypen.Notizen;
 
 import org.json.simple.*;
 import org.json.simple.parser.JSONParser;
-
 
 
 public class Liste{
@@ -53,6 +53,13 @@ public class Liste{
 
 
     
+        Listentyp test1 = new Einkaufsitems("Test1", 1, "Das ist ein Test", "Test");
+        Listentyp test2 = new Einkaufsitems("Test2", 2, "Das ist noch ein Test", "Test");
+        this.Einkaufsliste.add(test1);
+        this.Einkaufsliste.add(test2);
+        //Hier muss er aus der JSON-Datei die Notizen, Aufgaben, usw. auslesen und dann in die jeweilige Variable einspeichern
+    }
+    
 
     public void newItem(String name, int amount, String description, String category){
         Listentyp item = new Einkaufsitems(name, amount, description, category);
@@ -84,8 +91,6 @@ public class Liste{
      * @param listname {type: String} The name of the subclass from Listentyp
      */
 
-
-
     public void update_entry(Liste listen, ArrayList<Listentyp> list, int index, String listname){
         System.out.println("[0] Zurück\n[1] Löschen\n[2] Bearbeiten");
         System.out.println(list.get(index).all_informations());
@@ -107,7 +112,6 @@ public class Liste{
         
     }
 
-
     /**
      * Checks if there are entries in the list. 
      * Connects to the corresponding function.
@@ -115,7 +119,6 @@ public class Liste{
      * @param list {type: ArrayList<Listentype>} The list the client wonts to communicate with
      * @param listname {type: String} The name of the subclass fro Listentyp
      */
-
 
     public void scanner_case(Liste listen, ArrayList<Listentyp> list, String listname){
         if(list != null && list.size()!=0){
@@ -210,13 +213,10 @@ public class Liste{
         }
     }
 
-
     /**
      * Writes the lists in the JSON data
      * @param listen {type: Liste}
      */
-
-
     public void saveChanges(Liste listen){
         System.out.println("So, jetzt sollte der Stuff von den Listen in die JSON-Datei reingepackt werden");
         //Hier muss dann der ganze shit wieder in die JSON-Datei gespeichert werden.
@@ -230,7 +230,6 @@ public class Liste{
      * Connects to scanner_case with the needed parameter.
      * @param list {type: Liste}
      */
-
 
     public void main_func(Liste list){
         System.out.println("[0] Zurück\n[1] Öffne die Einkaufsliste\n[2] Öffne Aufgabenliste\n[3] Öffne Kontaktbuch \n[4] Öffne Notizbuch");
