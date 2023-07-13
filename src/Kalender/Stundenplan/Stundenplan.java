@@ -11,6 +11,6 @@ public class Stundenplan extends Kalender {
 
     public KalenderElement newLesson(String fach, Date date){
 
-
+        return null;
     }
 }
