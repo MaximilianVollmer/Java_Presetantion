@@ -1,5 +1,8 @@
 package org.example.Listen;
+
 import java.io.FileReader;
+
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -8,8 +11,11 @@ import org.example.Listen.Listentypen.Aufgaben;
 import org.example.Listen.Listentypen.Einkaufsitems;
 import org.example.Listen.Listentypen.Kontakte;
 import org.example.Listen.Listentypen.Notizen;
+
 import org.json.simple.*;
 import org.json.simple.parser.JSONParser;
+
+
 
 public class Liste{
 
@@ -19,6 +25,7 @@ public class Liste{
     public ArrayList<Listentyp> Notizbuch = new ArrayList<Listentyp>();
 
     Liste(){
+
         JSONParser parser = new JSONParser();
         try {
             FileReader reader = new FileReader(".\\Data\\DATA.json");
@@ -44,6 +51,9 @@ public class Liste{
         }
     }
 
+
+    
+
     public void newItem(String name, int amount, String description, String category){
         Listentyp item = new Einkaufsitems(name, amount, description, category);
         this.Einkaufsliste.add(item);
@@ -63,6 +73,7 @@ public class Liste{
         Listentyp item = new Notizen(name, description);
         this.Notizbuch.add(item);
     }
+
     
     /**
      * Asks the client what he wants to do with the data.
@@ -72,6 +83,9 @@ public class Liste{
      * @param index {type: Int} The index of the entry the client wants to communicate with.
      * @param listname {type: String} The name of the subclass from Listentyp
      */
+
+
+
     public void update_entry(Liste listen, ArrayList<Listentyp> list, int index, String listname){
         System.out.println("[0] Zurück\n[1] Löschen\n[2] Bearbeiten");
         System.out.println(list.get(index).all_informations());
@@ -93,6 +107,7 @@ public class Liste{
         
     }
 
+
     /**
      * Checks if there are entries in the list. 
      * Connects to the corresponding function.
@@ -100,6 +115,8 @@ public class Liste{
      * @param list {type: ArrayList<Listentype>} The list the client wonts to communicate with
      * @param listname {type: String} The name of the subclass fro Listentyp
      */
+
+
     public void scanner_case(Liste listen, ArrayList<Listentyp> list, String listname){
         if(list != null && list.size()!=0){
             System.out.println("[0] Zurück");
@@ -193,10 +210,13 @@ public class Liste{
         }
     }
 
+
     /**
      * Writes the lists in the JSON data
      * @param listen {type: Liste}
      */
+
+
     public void saveChanges(Liste listen){
         System.out.println("So, jetzt sollte der Stuff von den Listen in die JSON-Datei reingepackt werden");
         //Hier muss dann der ganze shit wieder in die JSON-Datei gespeichert werden.
@@ -204,11 +224,14 @@ public class Liste{
         //Wenn wir noch Zeit dazu haben. Kommt aber darauf an, was die API von dem Ding von Max hergibt. 
     }
 
+
     /**
      * Asks client wich list he wants to open.
      * Connects to scanner_case with the needed parameter.
      * @param list {type: Liste}
      */
+
+
     public void main_func(Liste list){
         System.out.println("[0] Zurück\n[1] Öffne die Einkaufsliste\n[2] Öffne Aufgabenliste\n[3] Öffne Kontaktbuch \n[4] Öffne Notizbuch");
 
