@@ -1,0 +1,18 @@
+[
+    {
+        "table":{
+            "name": "Test1",
+            "amount": "1",
+            "description": "Das ist ein Test",
+            "category": "Test"
+        }
+    },
+    {
+        "table":{
+            "name":"Test2",
+            "amount":"2",
+            "description":"Das ist ein Test",
+            "category":"Test"
+        }
+    }
+]
