@@ -1,6 +1,7 @@
 package org.example.Listen;
 
 
+
 import java.io.FileReader;
 
 
@@ -13,8 +14,10 @@ import org.example.Listen.Listentypen.Einkaufsitems;
 import org.example.Listen.Listentypen.Kontakte;
 import org.example.Listen.Listentypen.Notizen;
 
+
 import org.json.simple.*;
 import org.json.simple.parser.JSONParser;
+
 
 
 public class Liste{
@@ -53,6 +56,7 @@ public class Liste{
 
 
     
+
         Listentyp test1 = new Einkaufsitems("Test1", 1, "Das ist ein Test", "Test");
         Listentyp test2 = new Einkaufsitems("Test2", 2, "Das ist noch ein Test", "Test");
         this.Einkaufsliste.add(test1);
@@ -60,7 +64,6 @@ public class Liste{
         //Hier muss er aus der JSON-Datei die Notizen, Aufgaben, usw. auslesen und dann in die jeweilige Variable einspeichern
     }
     
-
     public void newItem(String name, int amount, String description, String category){
         Listentyp item = new Einkaufsitems(name, amount, description, category);
         this.Einkaufsliste.add(item);
@@ -80,6 +83,7 @@ public class Liste{
         Listentyp item = new Notizen(name, description);
         this.Notizbuch.add(item);
     }
+
 
     
     /**
@@ -213,10 +217,12 @@ public class Liste{
         }
     }
 
+
     /**
      * Writes the lists in the JSON data
      * @param listen {type: Liste}
      */
+
     public void saveChanges(Liste listen){
         System.out.println("So, jetzt sollte der Stuff von den Listen in die JSON-Datei reingepackt werden");
         //Hier muss dann der ganze shit wieder in die JSON-Datei gespeichert werden.
@@ -225,11 +231,13 @@ public class Liste{
     }
 
 
+
     /**
      * Asks client wich list he wants to open.
      * Connects to scanner_case with the needed parameter.
      * @param list {type: Liste}
      */
+
 
     public void main_func(Liste list){
         System.out.println("[0] Zurück\n[1] Öffne die Einkaufsliste\n[2] Öffne Aufgabenliste\n[3] Öffne Kontaktbuch \n[4] Öffne Notizbuch");
