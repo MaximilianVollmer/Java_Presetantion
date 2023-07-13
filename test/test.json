@@ -1,0 +1,25 @@
+[
+  {
+    "table": {
+      "name": "test",
+      "value": "1"
+    }
+  },
+  {
+    "table": {
+      "name": "test2",
+      "value": "2"
+    }
+  },
+  {
+    "chair": {
+      "name": "notest"
+    }
+  },
+  {
+    "table": {
+      "name": "test3",
+      "value": "3"
+    }
+  }
+]
