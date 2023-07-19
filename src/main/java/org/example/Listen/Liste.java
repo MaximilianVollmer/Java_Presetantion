@@ -54,15 +54,6 @@ public class Liste{
         }
     }
 
-
-    
-
-        Listentyp test1 = new Einkaufsitems("Test1", 1, "Das ist ein Test", "Test");
-        Listentyp test2 = new Einkaufsitems("Test2", 2, "Das ist noch ein Test", "Test");
-        this.Einkaufsliste.add(test1);
-        this.Einkaufsliste.add(test2);
-        //Hier muss er aus der JSON-Datei die Notizen, Aufgaben, usw. auslesen und dann in die jeweilige Variable einspeichern
-    }
     
     public void newItem(String name, int amount, String description, String category){
         Listentyp item = new Einkaufsitems(name, amount, description, category);
