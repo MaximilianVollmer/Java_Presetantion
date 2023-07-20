@@ -1,6 +1,6 @@
 package org.example.Events;
 import java.time.format.DateTimeFormatter;
-
+import java.util.Scanner;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
@@ -42,6 +42,33 @@ public class Reminder extends Events {
          // case 1 : true = sleeper +5 min
              // Rekursiver Aufruf der Methode nach 5 Minuten
             Reminder_info(rem);
+            System.out.println("[0] Erinnerung löschen");
+            System.out.println("[1] Erinnerung schlummern");
+            Scanner scan = new Scanner(System.in);
+            try{
+                while(scan.hasNextLine()){
+                    String action = scan.nextLine();
+                    switch(String.valueOf(action)){
+
+                        case "0":
+                        System.out.println("Erinnerung wurde gelöscht");
+                            break;
+                        case "1" :
+                        System.out.println("Erinnerung wurde um 5 Minuten verlängert");
+                        reminder_sleep(time.plusMinutes(5), rem);
+                        
+                        break;
+
+
+
+
+                    }
+                }
+            } 
+            catch(Exception e) {
+                System.out.println(e);
+            }
+
             try {
                 Thread.sleep(1 * 60 * 1000); // Warte 5 Minuten (in Millisekunden)
     
@@ -59,7 +86,7 @@ public class Reminder extends Events {
         //  System.out.println( LocalDateTime.now());
          //reminder_sleep( LocalDateTime.now());
 
-         Events test = new Events("test",LocalDateTime.parse("20/07/2023 17:14" , DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")), LocalDateTime.parse("20/07/2023 18:00" , DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")), "high");
+         Events test = new Events("test",LocalDateTime.parse("20/07/2023 17:40" , DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")), LocalDateTime.parse("20/07/2023 18:00" , DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")), "high");
         // reminder_sleep();
 
         // System.out.println("yyyy/MM/dd HH:mm:ss-> "+dtf.format(LocalDateTime.now()));
