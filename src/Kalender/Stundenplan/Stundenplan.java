@@ -38,6 +38,8 @@ public class Stundenplan extends Kalender {
         }
     }
 
+
+
     public Vorlesung getVorlesung(int index){
         return (Vorlesung) vorlesungen.get(index);
     }

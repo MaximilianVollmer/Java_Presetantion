@@ -3,9 +3,15 @@ package Kalender.Stundenplan;
 import Kalender.KalenderElements.KalenderElement;
 import org.example.Generators.TimeGenerator;
 
+import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.TextStyle;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.Locale;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class Vorlesung extends KalenderElement {
 
@@ -32,7 +38,7 @@ public class Vorlesung extends KalenderElement {
 
     public String getDate(){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(" - HH:mm");
-        return this.date.getDayOfWeek().toString().substring(0,3).toUpperCase() + this.date.format(formatter);
+        return this.date.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.GERMAN) + this.date.format(formatter);
     }
 
     public String getName(){
@@ -41,11 +47,16 @@ public class Vorlesung extends KalenderElement {
 
     public String getEndDate(){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(" - HH:mm");
-        return this.endTime.getDayOfWeek().toString().substring(0,3).toLowerCase() + this.endTime.format(formatter);
+        return this.endTime.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.GERMAN) + this.endTime.format(formatter);
     }
 
      public LocalDateTime generateTime(){
 
         return TimeGenerator.generateWeekdayTime();
     }
+
+    private static final Map<String, DayOfWeek> germanDaysOfWeek =
+            Arrays.stream(DayOfWeek.values()).collect(
+                    Collectors.toMap(
+                            d -> d.getDisplayName(TextStyle.FULL, Locale.GERMAN), d -> d));
 }
