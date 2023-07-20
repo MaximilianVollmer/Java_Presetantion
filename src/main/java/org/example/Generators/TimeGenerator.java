@@ -41,6 +41,7 @@ public class TimeGenerator {
         throw new Exception("Keine zulässige Zeit!");
     }
 
+
     public static LocalDateTime generateWeekdayTime(){
 
         Scanner scanner = new Scanner(System.in).useLocale(Locale.US);
