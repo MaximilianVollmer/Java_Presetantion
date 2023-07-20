@@ -2,7 +2,11 @@ package org.example.Generators;
 
 import java.time.*;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
+import java.time.temporal.ChronoField;
 import java.util.*;
+
+import static java.time.temporal.ChronoField.*;
 
 public class TimeGenerator {
 
@@ -63,14 +67,34 @@ public class TimeGenerator {
     public static LocalDateTime generateDateTime(){
 
         Scanner scanner = new Scanner(System.in).useLocale(Locale.US);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d.M.yyyy HH:mm");
+        DateTimeFormatter newFormatter = new DateTimeFormatterBuilder()
+                .appendValue(DAY_OF_MONTH, 2)
+                .appendLiteral(".")
+                .appendValue(MONTH_OF_YEAR, 2)
+                .appendLiteral(".")
+                .appendValue(YEAR, 4)
+                .appendLiteral(" ")
+                .optionalStart()
+                .appendValue(HOUR_OF_DAY, 2)
+                .appendLiteral(":")
+                .appendValue(MINUTE_OF_HOUR, 2)
+                .optionalEnd()
+                .optionalStart()
+                .appendValue(HOUR_OF_DAY,2 )
+                .appendLiteral(".")
+                .appendValue(MINUTE_OF_HOUR, 2)
+                .optionalEnd()
+                .toFormatter();
+
 
         try {
-            System.out.println("An welchem Datum?");
+            System.out.println("An welchem Datum? (dd.mm.yyyy)");
+            String inputDate = scanner.nextLine();
 
-            LocalDateTime date = LocalDateTime.parse(scanner.nextLine() + " 00:00", formatter);
+            System.out.println("Welche Uhrzeit? (hh:mm)");
+            String inputTime = scanner.nextLine();
 
-            return date;
+            return LocalDateTime.parse(inputDate + " " + inputTime, newFormatter);
         }
         catch(StackOverflowError | Exception e){
             System.out.println(e.getMessage());
@@ -80,8 +104,9 @@ public class TimeGenerator {
 
     public static void main(String[] args){
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d.M.yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d.M.yyyy hh:mm");
 
-        System.out.println(generateDateTime().format(formatter));
+        System.out.println(generateDateTime().get(HOUR_OF_DAY));
+
     }
 }
