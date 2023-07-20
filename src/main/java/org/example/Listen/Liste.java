@@ -53,7 +53,6 @@ public class Liste{
             System.out.println(e.getMessage());
         }
     }
-
     
     public void newItem(String name, int amount, String description, String category){
         Listentyp item = new Einkaufsitems(name, amount, description, category);
