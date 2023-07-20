@@ -1,5 +1,6 @@
 package org.example.Listen;
 
+
 import java.io.FileReader;
 
 
@@ -51,9 +52,6 @@ public class Liste{
         }
     }
 
-
-    
-
     public void newItem(String name, int amount, String description, String category){
         Listentyp item = new Einkaufsitems(name, amount, description, category);
         this.Einkaufsliste.add(item);
@@ -84,8 +82,6 @@ public class Liste{
      * @param listname {type: String} The name of the subclass from Listentyp
      */
 
-
-
     public void update_entry(Liste listen, ArrayList<Listentyp> list, int index, String listname){
         System.out.println("[0] Zurück\n[1] Löschen\n[2] Bearbeiten");
         System.out.println(list.get(index).all_informations());
@@ -107,7 +103,6 @@ public class Liste{
         
     }
 
-
     /**
      * Checks if there are entries in the list. 
      * Connects to the corresponding function.
@@ -115,7 +110,6 @@ public class Liste{
      * @param list {type: ArrayList<Listentype>} The list the client wonts to communicate with
      * @param listname {type: String} The name of the subclass fro Listentyp
      */
-
 
     public void scanner_case(Liste listen, ArrayList<Listentyp> list, String listname){
         if(list != null && list.size()!=0){
@@ -216,14 +210,12 @@ public class Liste{
      * @param listen {type: Liste}
      */
 
-
     public void saveChanges(Liste listen){
         System.out.println("So, jetzt sollte der Stuff von den Listen in die JSON-Datei reingepackt werden");
         //Hier muss dann der ganze shit wieder in die JSON-Datei gespeichert werden.
         //Am Besten auch, in dem man nur die Änderungen speichert, aber das wäre wohl nur etwas zusätzliches,
         //Wenn wir noch Zeit dazu haben. Kommt aber darauf an, was die API von dem Ding von Max hergibt. 
     }
-
 
     /**
      * Asks client wich list he wants to open.
