@@ -163,6 +163,7 @@ public class TimeGenerator {
 
 
 
+
     private static DayOfWeek inputWeekday(Scanner scanner){
         try{
             System.out.println("An welchem Wochentag?");
@@ -175,6 +176,9 @@ public class TimeGenerator {
             return inputWeekday(scanner);
         }
     }
+
+
+ 
 
 
     public static void main(String[] args){
