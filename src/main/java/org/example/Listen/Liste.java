@@ -25,7 +25,7 @@ public class Liste{
     public ArrayList<Listentyp> Kontaktbuch = new ArrayList<Listentyp>();
     public ArrayList<Listentyp> Notizbuch = new ArrayList<Listentyp>();
 
-    Liste(){
+    public Liste(){
 
         JSONParser parser = new JSONParser();
         try {
@@ -111,7 +111,7 @@ public class Liste{
      * @param listname {type: String} The name of the subclass fro Listentyp
      */
 
-    public void scanner_case(Liste listen, ArrayList<Listentyp> list, String listname){
+    private void scanner_case(Liste listen, ArrayList<Listentyp> list, String listname){
         if(list != null && list.size()!=0){
             System.out.println("[0] Zurück");
             for(int index = 0; index<list.size(); index++){
@@ -228,12 +228,14 @@ public class Liste{
         System.out.println("[0] Zurück\n[1] Öffne die Einkaufsliste\n[2] Öffne Aufgabenliste\n[3] Öffne Kontaktbuch \n[4] Öffne Notizbuch");
 
         Scanner new_scan = new Scanner(System.in);
+        boolean exit = false;
         try{
-            while(new_scan.hasNextLine()){ 
+            while(!exit){
                 String new_action = new_scan.nextLine();
                 switch(String.valueOf(new_action)){
                     case "0":
-                        new_scan.close();
+                        list.saveChanges(list);
+                        exit = true;
                         break;
                     case "1":
                         System.out.println(list.Einkaufsliste.getClass().getName());
@@ -257,6 +259,10 @@ public class Liste{
             list.saveChanges(list);
         }
 
+    }
+
+    public void commandLoop(){
+        main_func(this);
     }
     
     public static void main(String[] args) {

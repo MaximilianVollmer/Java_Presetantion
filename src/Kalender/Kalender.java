@@ -10,4 +10,8 @@ public class Kalender{
         kalenderList.add(e);
     }
 
+    public void commandLoop(){
+        System.out.println("Das mach noch nichts nur für test");
+    }
+
 }

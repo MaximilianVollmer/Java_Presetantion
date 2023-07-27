@@ -44,12 +44,18 @@ public class Stundenplan extends Kalender {
         return (Vorlesung) vorlesungen.get(index);
     }
 
-    public static void main(String[] args){
-        Stundenplan stundenplan = new Stundenplan();
-        stundenplan.newLesson();
-        System.out.println(stundenplan.getVorlesung(0).getDate());
-        System.out.println(stundenplan.getVorlesung(0).getEndDate());
-        System.out.println(stundenplan.getVorlesung(0).getName());
+    public void commandLoop(){
+        System.out.println("Stundenplan Konsole");
+        Scanner scanner = new Scanner(System.in);
+        String input ="";
+        while(!input.equals("exit")){
+            System.out.println("Was willst du im Stundenplan machen?");
+            input = scanner.nextLine();
+            switch(input){
+                case "neu" -> newLesson();
+
+            }
+        }
     }
 
 }
