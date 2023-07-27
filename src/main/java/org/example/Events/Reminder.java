@@ -7,8 +7,9 @@ import java.util.Scanner;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class Reminder extends Events implements Runnable{
+public class Reminder extends Events{
      static LocalDateTime event_date = LocalDateTime.now();
+
      
   
     public Reminder(String event_name, LocalDateTime event_start, LocalDateTime event_end, String event_priority) {
@@ -111,5 +112,5 @@ public class Reminder extends Events implements Runnable{
         reminder_sleep(reminder.event_start, reminder);
         
         }
-         
+
     }
