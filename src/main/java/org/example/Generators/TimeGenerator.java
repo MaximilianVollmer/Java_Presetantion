@@ -41,6 +41,7 @@ public class TimeGenerator {
         throw new Exception("Keine zulässige Zeit!");
     }
 
+
     public static LocalDateTime generateWeekdayTime(){
 
         Scanner scanner = new Scanner(System.in).useLocale(Locale.US);
@@ -92,6 +93,46 @@ public class TimeGenerator {
             String inputDate = scanner.nextLine();
 
             System.out.println("Welche Uhrzeit? (hh:mm)");
+            String inputTime = scanner.nextLine();
+
+            return LocalDateTime.parse(inputDate + " " + inputTime, newFormatter);
+        }
+        catch(StackOverflowError | Exception e){
+            System.out.println(e.getMessage());
+            return generateDateTime();
+        }
+    }
+
+    public static LocalDateTime generateDateTimeCustom(String date, String time){
+
+        //Use this to generate custom Input Prompts
+
+        Scanner scanner = new Scanner(System.in).useLocale(Locale.US);
+        DateTimeFormatter newFormatter = new DateTimeFormatterBuilder()
+                .appendValue(DAY_OF_MONTH, 2)
+                .appendLiteral(".")
+                .appendValue(MONTH_OF_YEAR, 2)
+                .appendLiteral(".")
+                .appendValue(YEAR, 4)
+                .appendLiteral(" ")
+                .optionalStart()
+                .appendValue(HOUR_OF_DAY, 2)
+                .appendLiteral(":")
+                .appendValue(MINUTE_OF_HOUR, 2)
+                .optionalEnd()
+                .optionalStart()
+                .appendValue(HOUR_OF_DAY,2 )
+                .appendLiteral(".")
+                .appendValue(MINUTE_OF_HOUR, 2)
+                .optionalEnd()
+                .toFormatter();
+
+
+        try {
+            System.out.println(date);
+            String inputDate = scanner.nextLine();
+
+            System.out.println(time);
             String inputTime = scanner.nextLine();
 
             return LocalDateTime.parse(inputDate + " " + inputTime, newFormatter);

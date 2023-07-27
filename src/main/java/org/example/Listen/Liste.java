@@ -1,7 +1,6 @@
 package org.example.Listen;
 
 
-
 import java.io.FileReader;
 
 
@@ -13,7 +12,6 @@ import org.example.Listen.Listentypen.Aufgaben;
 import org.example.Listen.Listentypen.Einkaufsitems;
 import org.example.Listen.Listentypen.Kontakte;
 import org.example.Listen.Listentypen.Notizen;
-
 
 import org.json.simple.*;
 import org.json.simple.parser.JSONParser;
@@ -53,7 +51,7 @@ public class Liste{
             System.out.println(e.getMessage());
         }
     }
-    
+
     public void newItem(String name, int amount, String description, String category){
         Listentyp item = new Einkaufsitems(name, amount, description, category);
         this.Einkaufsliste.add(item);
@@ -73,7 +71,6 @@ public class Liste{
         Listentyp item = new Notizen(name, description);
         this.Notizbuch.add(item);
     }
-
 
     
     /**
@@ -219,8 +216,6 @@ public class Liste{
         //Am Besten auch, in dem man nur die Änderungen speichert, aber das wäre wohl nur etwas zusätzliches,
         //Wenn wir noch Zeit dazu haben. Kommt aber darauf an, was die API von dem Ding von Max hergibt. 
     }
-
-
 
     /**
      * Asks client wich list he wants to open.
