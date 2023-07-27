@@ -1,11 +1,22 @@
 package org.example.Listen;
 
+
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
 import org.example.Listen.Listentypen.Listentyp;
 import org.example.JsonManager;
+
+
+import java.io.FileReader;
+
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+import org.example.Listen.Listentypen.Listentyp;
+
 import org.example.Listen.Listentypen.Aufgaben;
 import org.example.Listen.Listentypen.Einkaufsitems;
 import org.example.Listen.Listentypen.Kontakte;
@@ -18,10 +29,15 @@ import org.json.simple.parser.JSONParser;
 
 public class Liste{
 
+
     public ArrayList<Listentyp> Einkaufsliste= new ArrayList<Listentyp>();
+
+    public ArrayList<Listentyp> Einkaufsliste = new ArrayList<Listentyp>(); 
+
     public ArrayList<Listentyp> Aufgabenliste = new ArrayList<Listentyp>();
     public ArrayList<Listentyp> Kontaktbuch = new ArrayList<Listentyp>();
     public ArrayList<Listentyp> Notizbuch = new ArrayList<Listentyp>();
+
 
     public ArrayList<Listentyp> Einkaufsliste_old = new ArrayList<Listentyp>();
     public ArrayList<Listentyp> Aufgabenliste_old = new ArrayList<Listentyp>();
@@ -50,6 +66,35 @@ public class Liste{
 
     
 
+
+    Liste(){
+
+        JSONParser parser = new JSONParser();
+        try {
+            FileReader reader = new FileReader(".\\Data\\DATA.json");
+            JSONArray array = (JSONArray) parser.parse(reader);
+            array.forEach(object -> {
+                JSONObject js_obj = (JSONObject) object;
+                String tableName = "table";
+                try{
+                    JSONObject table = (JSONObject) js_obj.get(tableName);
+                    
+                    String name = (String) table.get("name");
+                    int amount = Integer.parseInt((String) table.get("amount"));
+                    String description = (String) table.get("description");
+                    String category = (String) table.get("category");
+                    Listentyp einkaufsitem = new Einkaufsitems(name, amount, description, category);
+                    this.Einkaufsliste.add(einkaufsitem);
+                }catch(Exception e){
+                    
+                }
+            });
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+  
     public void newItem(String name, int amount, String description, String category){
         Listentyp item = new Einkaufsitems(name, amount, description, category);
         this.Einkaufsliste.add(item);
@@ -79,7 +124,6 @@ public class Liste{
      * @param index {type: Int} The index of the entry the client wants to communicate with.
      * @param listname {type: String} The name of the subclass from Listentyp
      */
-
 
 
     public void update_entry(Liste listen, ArrayList<Listentyp> list, int index, String listname){
@@ -213,6 +257,7 @@ public class Liste{
      */
 
 
+
     public void saveChanges(Liste listen){
         System.out.println("So, jetzt sollte der Stuff von den Listen in die JSON-Datei reingepackt werden");
         String old_list = this.Einkaufsliste_old.toString();
@@ -249,11 +294,24 @@ public class Liste{
     }
 
 
+
+    public void saveChanges(Liste listen){
+        System.out.println("So, jetzt sollte der Stuff von den Listen in die JSON-Datei reingepackt werden");
+        //Hier muss dann der ganze shit wieder in die JSON-Datei gespeichert werden.
+        //Am Besten auch, in dem man nur die Änderungen speichert, aber das wäre wohl nur etwas zusätzliches,
+        //Wenn wir noch Zeit dazu haben. Kommt aber darauf an, was die API von dem Ding von Max hergibt. 
+    }
+
+
     /**
      * Asks client wich list he wants to open.
      * Connects to scanner_case with the needed parameter.
      * @param list {type: Liste}
      */
+
+
+
+  
     public void main_func(Liste list){
         System.out.println("[0] Zurück\n[1] Öffne die Einkaufsliste\n[2] Öffne Aufgabenliste\n[3] Öffne Kontaktbuch \n[4] Öffne Notizbuch");
 

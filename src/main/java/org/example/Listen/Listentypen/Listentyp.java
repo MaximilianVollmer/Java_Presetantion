@@ -1,6 +1,8 @@
 package org.example.Listen.Listentypen;
 
-public class Listentyp extends Object {
+
+public class Listentyp {
+
     protected String name;
 
     public String get_informations(){
@@ -12,7 +14,9 @@ public class Listentyp extends Object {
         String info = "Name: "+this.name;
         return info;
     }
+
     public String get_info(String key){
         return "";
     }
+
 }
