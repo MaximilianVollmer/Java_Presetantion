@@ -1,12 +1,11 @@
 package org.example.Listen;
 
-import java.io.FileReader;
-
-
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 import org.example.Listen.Listentypen.Listentyp;
+import org.example.JsonManager;
 import org.example.Listen.Listentypen.Aufgaben;
 import org.example.Listen.Listentypen.Einkaufsitems;
 import org.example.Listen.Listentypen.Kontakte;
@@ -19,35 +18,32 @@ import org.json.simple.parser.JSONParser;
 
 public class Liste{
 
-    public ArrayList<Listentyp> Einkaufsliste = new ArrayList<Listentyp>(); 
+    public ArrayList<Listentyp> Einkaufsliste= new ArrayList<Listentyp>();
     public ArrayList<Listentyp> Aufgabenliste = new ArrayList<Listentyp>();
     public ArrayList<Listentyp> Kontaktbuch = new ArrayList<Listentyp>();
     public ArrayList<Listentyp> Notizbuch = new ArrayList<Listentyp>();
 
-    Liste(){
+    public ArrayList<Listentyp> Einkaufsliste_old = new ArrayList<Listentyp>();
+    public ArrayList<Listentyp> Aufgabenliste_old = new ArrayList<Listentyp>();
+    public ArrayList<Listentyp> Kontaktbuch_old = new ArrayList<Listentyp>();
+    public ArrayList<Listentyp> Notizbuch_old = new ArrayList<Listentyp>();
 
-        JSONParser parser = new JSONParser();
+    public Liste(){
+
         try {
-            FileReader reader = new FileReader(".\\Data\\DATA.json");
-            JSONArray array = (JSONArray) parser.parse(reader);
-            array.forEach(object -> {
-                JSONObject js_obj = (JSONObject) object;
-                String tableName = "table";
-                try{
-                    JSONObject table = (JSONObject) js_obj.get(tableName);
-                    
-                    String name = (String) table.get("name");
-                    int amount = Integer.parseInt((String) table.get("amount"));
-                    String description = (String) table.get("description");
-                    String category = (String) table.get("category");
-                    Listentyp einkaufsitem = new Einkaufsitems(name, amount, description, category);
-                    this.Einkaufsliste.add(einkaufsitem);
-                }catch(Exception e){
-                    
-                }
+            ArrayList<JSONObject> shopping_list = JsonManager.readJson(".\\Data\\DATA.json", "shopping_list");
+            shopping_list.forEach(entry -> {
+                String name =(String) entry.get("name");
+                Integer amount = Integer.valueOf((((String) entry.get("amount"))));
+                String description = (String) entry.get("description");
+                String category = (String) entry.get("category");
+
+                Einkaufsitems item = new Einkaufsitems(name, amount, description, category);
+                this.Einkaufsliste.add(item);
             });
+            this.Einkaufsliste_old = this.Einkaufsliste;
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            System.out.println(e);
         }
     }
 
@@ -219,9 +215,37 @@ public class Liste{
 
     public void saveChanges(Liste listen){
         System.out.println("So, jetzt sollte der Stuff von den Listen in die JSON-Datei reingepackt werden");
-        //Hier muss dann der ganze shit wieder in die JSON-Datei gespeichert werden.
-        //Am Besten auch, in dem man nur die Änderungen speichert, aber das wäre wohl nur etwas zusätzliches,
-        //Wenn wir noch Zeit dazu haben. Kommt aber darauf an, was die API von dem Ding von Max hergibt. 
+        String old_list = this.Einkaufsliste_old.toString();
+        // .map(Listentyp::toString).collect(Collectors.joining(", "));
+        // Listentyp listString = Einkaufsliste_old.stream();
+        System.out.println(Einkaufsliste);
+        JSONObject placeholer = new JSONObject();
+        JSONArray liste = new JSONArray();
+        Einkaufsliste.forEach(stuff ->{
+            System.out.println(stuff);
+
+            placeholer.put("name", stuff.get_info("name"));
+            placeholer.put("amount", stuff.get_info("amount"));
+            placeholer.put("description", stuff.get_info("description"));
+            placeholer.put("category", stuff.get_info("category"));
+            
+            liste.add(placeholer);
+        });
+        JSONObject placeholer_old = new JSONObject();
+        JSONArray liste_old = new JSONArray();
+        Einkaufsliste_old.forEach(stuff ->{
+            System.out.println(stuff);
+
+            placeholer_old.put("name", stuff.get_info("name"));
+            placeholer_old.put("amount", stuff.get_info("amount"));
+            placeholer_old.put("description", stuff.get_info("description"));
+            placeholer_old.put("category", stuff.get_info("category"));
+            
+            liste_old.add(placeholer_old);
+        });
+        System.out.println(liste);
+        // System.out.println(Einkaufsliste_old.stream().map(Listentyp::toString).collect(Collectors.joining(", ")));
+        JsonManager.doIt(".\\Data\\DATA.json", liste_old.toString(), liste.toString());
     }
 
 
@@ -230,8 +254,6 @@ public class Liste{
      * Connects to scanner_case with the needed parameter.
      * @param list {type: Liste}
      */
-
-
     public void main_func(Liste list){
         System.out.println("[0] Zurück\n[1] Öffne die Einkaufsliste\n[2] Öffne Aufgabenliste\n[3] Öffne Kontaktbuch \n[4] Öffne Notizbuch");
 
