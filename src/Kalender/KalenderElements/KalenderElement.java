@@ -12,4 +12,10 @@ public abstract class KalenderElement{
 
     public abstract LocalDateTime generateTime();
 
+    public abstract String getName();
+
+
+    public abstract String getDozent();
+
+    public abstract String getDate();
 }

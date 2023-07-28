@@ -228,6 +228,7 @@ public class Liste{
         System.out.println("[0] Zurück\n[1] Öffne die Einkaufsliste\n[2] Öffne Aufgabenliste\n[3] Öffne Kontaktbuch \n[4] Öffne Notizbuch");
 
         Scanner new_scan = new Scanner(System.in);
+
         boolean exit = false;
         try{
             while(!exit){
@@ -238,7 +239,7 @@ public class Liste{
                         exit = true;
                         break;
                     case "1":
-                        System.out.println(list.Einkaufsliste.getClass().getName());
+                        //System.out.println(list.Einkaufsliste.getClass().getName());
                         list.scanner_case(list, list.Einkaufsliste,"Einkaufsliste");
                         break;
                     case"2":
