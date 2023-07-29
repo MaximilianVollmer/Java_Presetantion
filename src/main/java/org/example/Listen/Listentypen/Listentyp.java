@@ -1,6 +1,8 @@
 package org.example.Listen.Listentypen;
 
-public class Listentyp extends Object {
+
+public class Listentyp {
+
     protected String name;
 
     /**
@@ -21,12 +23,16 @@ public class Listentyp extends Object {
         return info;
     }
 
+<<<<<<< HEAD
     /**
      * Returning one information
      * @param key
      * @return {String} Containing this information
      */
+=======
+>>>>>>> 03a3702d5344840ee5e60eaf0c1083e38b1ce899
     public String get_info(String key){
         return "";
     }
+
 }

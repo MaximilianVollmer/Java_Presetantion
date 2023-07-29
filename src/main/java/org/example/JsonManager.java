@@ -1,10 +1,14 @@
 package org.example;
 
+
 import org.example.Listen.Listentypen.Einkaufsitems;
 import org.example.Listen.Listentypen.Listentyp;
+
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -39,10 +43,33 @@ public class JsonManager {
                 }catch(Exception e){
                     System.out.println(e);
                 }
+
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.concurrent.atomic.AtomicInteger;
+
+public class JsonManager {
+
+    public void readJson() throws IOException{
+        JSONParser parser = new JSONParser();
+        try(FileReader reader = new FileReader (".\\Data\\DATA.json")){
+            Object obj = parser.parse(reader);
+            JSONArray a = (JSONArray) obj;
+            System.out.println(a);
+            a.forEach(object -> {
+                JSONObject test = (JSONObject) object;
+                String tableName = "table";
+                try{
+                    JSONObject table = (JSONObject) test.get(tableName);
+                    String name = (String) table.get("value");
+                    System.out.println(name);
+                }catch(Exception e){}
+
             });
         }catch (Exception e){
             System.out.println("File not found");
         }
+
 
         return value;
     }
@@ -72,4 +99,22 @@ public class JsonManager {
             e.printStackTrace();
           }
     }
+<<<<<<< HEAD
+=======
+
+    public void test(String file_path, String old_content, String new_content) throws IOException{
+        FileWriter write = new FileWriter(file_path);
+        FileReader read = new FileReader(file_path);
+        BufferedReader br = new BufferedReader(read);
+        String to_change = br.readLine();
+        write.append(new_content, to_change.indexOf(old_content),  to_change.indexOf(old_content)+old_content.length());
+    }
+    // public static void main(String[] args) {
+    //     JsonManager jsonman = new JsonManager();
+    //     jsonman.doIt();
+    // }
+
+    }
+
+>>>>>>> 03a3702d5344840ee5e60eaf0c1083e38b1ce899
 }
