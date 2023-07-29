@@ -1,8 +1,8 @@
 package org.example.Listen;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.stream.Collectors;
 
 import org.example.Listen.Listentypen.Listentyp;
 import org.example.JsonManager;
@@ -12,9 +12,6 @@ import org.example.Listen.Listentypen.Kontakte;
 import org.example.Listen.Listentypen.Notizen;
 
 import org.json.simple.*;
-import org.json.simple.parser.JSONParser;
-
-
 
 public class Liste{
 
@@ -23,32 +20,59 @@ public class Liste{
     public ArrayList<Listentyp> Kontaktbuch = new ArrayList<Listentyp>();
     public ArrayList<Listentyp> Notizbuch = new ArrayList<Listentyp>();
 
-    public ArrayList<Listentyp> Einkaufsliste_old = new ArrayList<Listentyp>();
-    public ArrayList<Listentyp> Aufgabenliste_old = new ArrayList<Listentyp>();
-    public ArrayList<Listentyp> Kontaktbuch_old = new ArrayList<Listentyp>();
-    public ArrayList<Listentyp> Notizbuch_old = new ArrayList<Listentyp>();
-
+    /**
+     * Connects to the JSONManager.java to get all informations from the json. 
+     */
     public Liste(){
-
         try {
-            ArrayList<JSONObject> shopping_list = JsonManager.readJson(".\\Data\\DATA.json", "shopping_list");
+            ArrayList<JSONObject> shopping_list = JsonManager.readJson(".\\Data\\ShoppingList.json");
             shopping_list.forEach(entry -> {
                 String name =(String) entry.get("name");
                 Integer amount = Integer.valueOf((((String) entry.get("amount"))));
                 String description = (String) entry.get("description");
                 String category = (String) entry.get("category");
 
-                Einkaufsitems item = new Einkaufsitems(name, amount, description, category);
+                Listentyp item = new Einkaufsitems(name, amount, description, category);
                 this.Einkaufsliste.add(item);
             });
-            this.Einkaufsliste_old = this.Einkaufsliste;
+        }catch (Exception e) {
+            // System.out.println(e);
+        }
+        try{
+            ArrayList<JSONObject> task_list = JsonManager.readJson(".\\Data\\TaskList.json");
+            task_list.forEach(entry -> {
+                String name =(String) entry.get("name");
+                Integer importance = Integer.valueOf((((String) entry.get("importance"))));
+                String description = (String) entry.get("description");
+                Listentyp task = new Aufgaben(importance, name, description);
+                this.Aufgabenliste.add(task);
+            });
+        }catch (Exception e) {
+            // System.out.println(e);
+        }
+        try{
+            ArrayList<JSONObject> note_book = JsonManager.readJson(".\\Data\\NoteBook.json");
+            note_book.forEach(entry -> {
+                String name =(String) entry.get("name");
+                String informations = (String) entry.get("informations");
+                Listentyp note = new Notizen(name, informations);
+                this.Notizbuch.add(note);
+            });
+        }catch (Exception e) {
+            // System.out.println(e);
+        }
+        try{
+            ArrayList<JSONObject> contact_book = JsonManager.readJson(".\\Data\\Contactbook.json");
+            contact_book.forEach(entry -> {
+                String name =(String) entry.get("name");
+                Integer tel_number = Integer.valueOf((((String) entry.get("tel_number"))));
+                Listentyp contact = new Kontakte(name, tel_number);
+                this.Kontaktbuch.add(contact);
+            });
         } catch (Exception e) {
-            System.out.println(e);
+            // System.out.println(e);
         }
     }
-
-
-    
 
     public void newItem(String name, int amount, String description, String category){
         Listentyp item = new Einkaufsitems(name, amount, description, category);
@@ -60,8 +84,8 @@ public class Liste{
         this.Aufgabenliste.add(item);
     }
 
-    public void newContact(String first_name, String last_name, int tel_number){
-        Listentyp item = new Kontakte(first_name, last_name, tel_number);
+    public void newContact(String name, int tel_number){
+        Listentyp item = new Kontakte(name, tel_number);
         this.Kontaktbuch.add(item);
     }
 
@@ -70,18 +94,13 @@ public class Liste{
         this.Notizbuch.add(item);
     }
 
-    
     /**
-     * Asks the client what he wants to do with the data.
-     * Does it or connects to the function wich does it.
-     * @param listen {type: Liste}
-     * @param list {type: ArrayList<Listentyp>} The list the client was communicating with.
-     * @param index {type: Int} The index of the entry the client wants to communicate with.
-     * @param listname {type: String} The name of the subclass from Listentyp
+     * Returns all informations and updates or deletes the entry, if wanted.
+     * @param listen
+     * @param list
+     * @param index
+     * @param listname
      */
-
-
-
     public void update_entry(Liste listen, ArrayList<Listentyp> list, int index, String listname){
         System.out.println("[0] Zurück\n[1] Löschen\n[2] Bearbeiten");
         System.out.println(list.get(index).all_informations());
@@ -98,21 +117,16 @@ public class Liste{
             case"2":
                 //Muss ich noch gucken, wie ich das mache
                 listen.update_entry(listen, list, index, listname);
-
-        }
-        
+        }  
     }
 
-
     /**
-     * Checks if there are entries in the list. 
-     * Connects to the corresponding function.
-     * @param listen {type: Liste}
-     * @param list {type: ArrayList<Listentype>} The list the client wonts to communicate with
-     * @param listname {type: String} The name of the subclass fro Listentyp
+     * Prints the data from the list.
+     * Asks if the client wants to create a new entry.
+     * @param listen
+     * @param list
+     * @param listname
      */
-
-
     public void scanner_case(Liste listen, ArrayList<Listentyp> list, String listname){
         if(list != null && list.size()!=0){
             System.out.println("[0] Zurück");
@@ -120,7 +134,9 @@ public class Liste{
                 int schowable_index = index+1;
                 System.out.println("["+schowable_index+"]"+list.get(index).get_informations());
             }
-            System.out.println("Wählen sie den Eintrag aus, um genauere Informationen zu sehen, ihn zu bearbeiten, oder zu löschen.");
+            Integer list_plus = list.size()+1;
+            System.out.println("["+list_plus+"] Erstellen sie einen neuen Eintrag,");
+            System.out.println("oder wählen sie einen Eintrag aus, um genauere Informationen zu sehen, ihn zu bearbeiten, oder zu löschen.");
             Scanner scan_one = new Scanner(System.in);
             String action_one = scan_one.nextLine();
             Integer index = Integer.parseInt(String.valueOf(action_one))-1;
@@ -129,123 +145,140 @@ public class Liste{
                     listen.main_func(listen);      
                     break;
             }
-            listen.update_entry(listen, list, index, listname);             
+            if(index == list.size()){
+                listen.newEntry(listen, list, listname);
+            }
+            else{
+                listen.update_entry(listen, list, index, listname);
+            }        
         }
         else{
             System.out.println("In dieser Liste sind keine Einträge.");
             System.out.println("[0] Zurück\n[1] Einen neuen Eintrag der Liste hinzufügen.");
-            Scanner scan_one = new Scanner(System.in);
-            String action_one = scan_one.nextLine();
+            Scanner new_scan = new Scanner(System.in);
+            String new_line = new_scan.nextLine();
 
-            switch(String.valueOf(action_one)){
+            switch(String.valueOf(new_line)){
                 case "0":
                     listen.main_func(listen);
                     break;
                 case "1":
-                    Scanner add_item = new Scanner(System.in);
-
-                    switch(listname){
-                        case "Einkaufsliste":
-                            System.out.println("Name: ");
-                            String item_name = add_item.next();
-
-                            System.out.println("Anzahl: ");
-                            Integer item_amount = add_item.nextInt();
-
-                            System.out.println("Beschreibung: ");
-                            String item_description = add_item.next();
-
-                            System.out.println("Kategorie: ");
-                            String item_category = add_item.next();
-
-                            listen.newItem(item_name, item_amount, item_description, item_category);
-                            break;
-                        case "Aufgabenliste":
-                            System.out.println("Name: ");
-                            String task_name = add_item.next();
-
-                            System.out.println("Wichtigkeit: ");
-                            Integer task_importance = add_item.nextInt();
-
-                            System.out.println("Beschreibung: ");
-                            String task_description = add_item.next();
-                            
-                            listen.newTask(task_name, task_importance, task_description);
-                            break;
-                        case "Kontaktbuch":
-                            System.out.println("Vorname: ");
-                            String contact_firstname = add_item.next();
-
-                            System.out.println("Nachname: ");
-                            String contact_lastname = add_item.next();
-
-                            System.out.println("Telefonnummer: ");
-                            Integer contact_number = add_item.nextInt();
-                            
-                            listen.newContact(contact_firstname, contact_lastname, contact_number);
-                            break;
-                        case "Notizbuch":
-                            System.out.println("Name: ");
-                            String note_name = add_item.next();
-
-                            System.out.println("Beschreibung: ");
-                            String note_description = add_item.next();
-                            
-                            listen.newNote(note_name, note_description);
-                            break;
-                        default:
-                            System.out.println("Das sollte eigentlich nie passieren.");
-                            listen.scanner_case(listen, list, listname);
-                    }                    
+                    listen.newEntry(listen, list, listname);
                     break;
                 default:
                     System.out.println("Sie müssen schon eine der gennanten Nummern eingeben. Ich schreib die nicht aus Spaß!");
                     listen.scanner_case(listen, list, listname);
-            }
-            listen.main_func(listen);            
+            }         
         }
+        listen.main_func(listen);   
     }
 
+    /**
+     * Asks for the corresponding attributes 
+     * and creates a new entry in the corresponding list.
+     * @param listen
+     * @param list
+     * @param listname
+     */
+    public void newEntry(Liste listen, ArrayList<Listentyp> list, String listname){
+        Scanner add_item = new Scanner(System.in);
+        switch(listname){
+            case "Einkaufsliste":
+                System.out.println("Name: ");
+                String item_name = add_item.next();
+
+                System.out.println("Anzahl: ");
+                Integer item_amount = add_item.nextInt();
+
+                System.out.println("Beschreibung: ");
+                String item_description = add_item.next();
+
+                System.out.println("Kategorie: ");
+                String item_category = add_item.next();
+
+                listen.newItem(item_name, item_amount, item_description, item_category);
+                break;
+            case "Aufgabenliste":
+                System.out.println("Name: ");
+                String task_name = add_item.next();
+
+                System.out.println("Wichtigkeit: ");
+                Integer task_importance = add_item.nextInt();
+
+                System.out.println("Beschreibung: ");
+                String task_description = add_item.next();
+                
+                listen.newTask(task_name, task_importance, task_description);
+                break;
+            case "Kontaktbuch":
+                System.out.println("Vor- und Nachname ");
+                String contact_name = add_item.next();
+
+                System.out.println("Telefonnummer: ");
+                Integer contact_number = add_item.nextInt();
+                
+                listen.newContact(contact_name, contact_number);
+                break;
+            case "Notizbuch":
+                System.out.println("Name: ");
+                String note_name = add_item.next();
+
+                System.out.println("Beschreibung: ");
+                String note_description = add_item.next();
+                
+                listen.newNote(note_name, note_description);
+                break;
+            default:
+                System.out.println("Das sollte eigentlich nie passieren.");
+                listen.scanner_case(listen, list, listname);             
+                break;
+        }  
+    }
 
     /**
-     * Writes the lists in the JSON data
-     * @param listen {type: Liste}
+     * Converts the lists to JSONArrays of Strings.
+     * Sends them to the JsonManager.java to save them.
      */
-
-
-    public void saveChanges(Liste listen){
-        System.out.println("So, jetzt sollte der Stuff von den Listen in die JSON-Datei reingepackt werden");
-        String old_list = this.Einkaufsliste_old.toString();
-        // .map(Listentyp::toString).collect(Collectors.joining(", "));
-        // Listentyp listString = Einkaufsliste_old.stream();
-        System.out.println(Einkaufsliste);
-        JSONObject placeholer = new JSONObject();
-        JSONArray liste = new JSONArray();
+    public void saveChanges(){
+        JSONArray shopping_list = new JSONArray();
+        JSONArray contact_book = new JSONArray();
+        JSONArray task_list = new JSONArray();
+        JSONArray note_book = new JSONArray();
         Einkaufsliste.forEach(stuff ->{
-            System.out.println(stuff);
-
+            JSONObject placeholer = new JSONObject();
             placeholer.put("name", stuff.get_info("name"));
             placeholer.put("amount", stuff.get_info("amount"));
             placeholer.put("description", stuff.get_info("description"));
             placeholer.put("category", stuff.get_info("category"));
-            
-            liste.add(placeholer);
+            shopping_list.add(placeholer);
         });
-        JSONObject placeholer_old = new JSONObject();
-        JSONArray liste_old = new JSONArray();
-        Einkaufsliste_old.forEach(stuff ->{
-            System.out.println(stuff);
-
-            placeholer_old.put("name", stuff.get_info("name"));
-            placeholer_old.put("amount", stuff.get_info("amount"));
-            placeholer_old.put("description", stuff.get_info("description"));
-            placeholer_old.put("category", stuff.get_info("category"));
-            
-            liste_old.add(placeholer_old);
+        Kontaktbuch.forEach(stuff ->{
+            JSONObject placeholer = new JSONObject();
+            placeholer.put("name", stuff.get_info("name"));
+            placeholer.put("tel_number", stuff.get_info("tel_number"));
+            contact_book.add(placeholer);
         });
-        System.out.println(liste);
-        // System.out.println(Einkaufsliste_old.stream().map(Listentyp::toString).collect(Collectors.joining(", ")));
-        JsonManager.doIt(".\\Data\\DATA.json", liste_old.toString(), liste.toString());
+        Aufgabenliste.forEach(stuff ->{
+            JSONObject placeholer = new JSONObject();
+            placeholer.put("name", stuff.get_info("name"));
+            placeholer.put("importance", stuff.get_info("importance"));
+            placeholer.put("description", stuff.get_info("description"));
+            task_list.add(placeholer);
+        });
+        Notizbuch.forEach(stuff ->{
+            JSONObject placeholer = new JSONObject();
+            placeholer.put("name", stuff.get_info("name"));
+            placeholer.put("informations", stuff.get_info("informations"));
+            note_book.add(placeholer);
+        });
+        try {
+            JsonManager.test(".\\Data\\ShoppingList.json",shopping_list.toJSONString());
+            JsonManager.test(".\\Data\\ContactBook.json",contact_book.toJSONString());
+            JsonManager.test(".\\Data\\TaskList.json",task_list.toJSONString());
+            JsonManager.test(".\\Data\\NoteBook.json",note_book.toJSONString());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -266,7 +299,6 @@ public class Liste{
                         new_scan.close();
                         break;
                     case "1":
-                        System.out.println(list.Einkaufsliste.getClass().getName());
                         list.scanner_case(list, list.Einkaufsliste,"Einkaufsliste");
                         break;
                     case"2":
@@ -284,7 +316,7 @@ public class Liste{
                 }
             }
         }catch (Exception e) {
-            list.saveChanges(list);
+            list.saveChanges();
         }
 
     }

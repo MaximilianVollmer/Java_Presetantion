@@ -7,7 +7,6 @@ public class Einkaufsitems extends Listentyp{
     public String category;
 
     public Einkaufsitems(String name, int amount, String description, String category){
-        System.out.println("TEst");
         this.name = name;
         this.amount = amount;
         this.description = description;
@@ -35,6 +34,5 @@ public class Einkaufsitems extends Listentyp{
             default:
                 return "";
         }
-
     }
 }
