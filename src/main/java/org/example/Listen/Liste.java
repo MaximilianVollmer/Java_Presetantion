@@ -24,6 +24,7 @@ public class Liste{
     public ArrayList<Listentyp> Kontaktbuch = new ArrayList<Listentyp>();
     public ArrayList<Listentyp> Notizbuch = new ArrayList<Listentyp>();
 
+
     /**
      * Connects to the JSONManager.java to get all informations from the json. 
      */
@@ -132,7 +133,9 @@ public class Liste{
      * @param listname
      */
 
+
     public void scanner_case(Liste listen, ArrayList<Listentyp> list, String listname){
+
 
         if(list != null && list.size()!=0){
             System.out.println("[0] Zurück");

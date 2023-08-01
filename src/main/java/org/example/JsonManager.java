@@ -41,11 +41,13 @@ public class JsonManager {
             a.forEach( object -> {
                 JSONObject test = (JSONObject) object;
                 try{
+
                     value.add(test);
                     
                 }catch(Exception e){
                     System.out.println(e);
                 }
+
             });
         }
         return value;
