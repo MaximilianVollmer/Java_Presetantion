@@ -72,6 +72,15 @@ public class TimeGenerator {
         }
     }
 
+    private static String validateTime(String input) throws Exception {
+        if(input.matches("\\d{2}.\\d{2}") || input.matches("\\d{2}:\\d{2}")){
+            return input;
+        }
+        else{
+            throw new Exception("Keine gültige Zeit!");
+        }
+    }
+
 
     public static LocalDateTime generateWeekdayTime(){
 
@@ -86,6 +95,7 @@ public class TimeGenerator {
             boolean weekdayBeforeDate = date.with(weekday).isBefore(LocalDate.now());
 
             return LocalDateTime.of(!weekdayBeforeDate ? date.with(weekday) : date.with(weekday).plusWeeks(1) ,LocalTime.of((int)time,((int)Math.round(time*100)) % 100));
+
     }
 
     public static LocalDateTime generateDateTime(){
@@ -94,7 +104,7 @@ public class TimeGenerator {
         DateTimeFormatter newFormatter = formatterProvider();
 
             String inputDate = inputDate(scanner);
-            String inputTime = String.valueOf(inputTime(scanner));
+            String inputTime = inputTimeString();
 
             return LocalDateTime.parse(inputDate + " " + inputTime, newFormatter);
     }
@@ -124,6 +134,18 @@ public class TimeGenerator {
             System.out.println("Keine zulässige Zeit!");
             scanner.nextLine();
             return inputTime(scanner);
+        }
+    }
+
+    private static String inputTimeString(){
+        Scanner scanner = new Scanner(System.in);
+        try {
+            System.out.println("Um welche Uhrzeit? (hh.mm)");
+            return TimeGenerator.validateTime(scanner.nextLine());
+        }
+        catch(Exception e){
+            System.out.println("Keine zulässige Zeit!");
+            return inputTimeString();
         }
     }
     private static double inputTime(Scanner scanner, String input){
@@ -183,9 +205,9 @@ public class TimeGenerator {
 
     public static void main(String[] args){
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy hh:mm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
 
-        LocalDateTime date = generateDateTime("A", "AA");
+        LocalDateTime date = generateDateTime();
 
         System.out.println(date.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.GERMAN)+ " "+date.format(formatter));
 

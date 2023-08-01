@@ -3,13 +3,15 @@ import java.sql.Date;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
+import Kalender.Kalender;
+import Kalender.KalenderElements.KalenderElement;
 import org.example.Generators.TimeGenerator;
 
 import java.text.SimpleDateFormat;
 import java.text.AttributedCharacterIterator.Attribute;
 import java.time.LocalDateTime;
 
-public class Events {
+public class Events extends KalenderElement {
     
 // Class variables declaration
 public String event_name;

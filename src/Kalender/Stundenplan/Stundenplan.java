@@ -4,23 +4,13 @@ import Kalender.Kalender;
 import Kalender.KalenderElements.KalenderElement;
 
 
-import java.util.ArrayList;
-import java.util.Date;
-
-public class Stundenplan extends Kalender {
-    private ArrayList<KalenderElement> vorlesungen = new ArrayList<KalenderElement>();
-
-    public KalenderElement newLesson(String fach, Date date){
-
-        return null;
-    }
-
+import java.time.LocalDateTime;
 import java.util.*;
 
 public class Stundenplan extends Kalender {
 
     Scanner scanner = new Scanner(System.in).useLocale(Locale.US);
-    private ArrayList<KalenderElement> vorlesungen = new ArrayList<KalenderElement>();
+    private final ArrayList<KalenderElement> vorlesungen = new ArrayList<>();
 
 
     public void newLesson(){
@@ -50,18 +40,83 @@ public class Stundenplan extends Kalender {
         }
     }
 
+    private void createTestSample(){
+        for(int i = 0; i < 5; i++) {
+            vorlesungen.add(new Vorlesung(Integer.toString(i), LocalDateTime.now()));
+        }
+    }
+
 
 
     public Vorlesung getVorlesung(int index){
         return (Vorlesung) vorlesungen.get(index);
     }
 
-    public static void main(String[] args){
-        Stundenplan stundenplan = new Stundenplan();
-        stundenplan.newLesson();
-        System.out.println(stundenplan.getVorlesung(0).getDate());
-        System.out.println(stundenplan.getVorlesung(0).getEndDate());
-        System.out.println(stundenplan.getVorlesung(0).getName());
+    public void printVorlesung(int index){
+            System.out.println("\n"+index);
+            System.out.println(((Vorlesung)vorlesungen.get(index)).getName());
+            System.out.println(((Vorlesung)vorlesungen.get(index)).getDozent());
+            System.out.println(((Vorlesung)vorlesungen.get(index)).getDate()+"\n");
+    }
+
+    private void elementCommands(int index){
+        if(index < vorlesungen.size()) {
+            commandloop:
+            while (true) {
+                System.out.println("[0]Zurück\n[1]Anzeigen\n[2]Bearbeiten\n[3]Löschen");
+                switch (scanner.nextLine()) {
+                    case "0" -> {
+                        break commandloop;
+                    }
+                    case "1" -> printVorlesung(index);
+                    case "2" -> System.out.println("WIP"); //TODO: Method in Vorlesung to keep name and edit other parameters or select which parameters to edit
+                    case "3" -> {
+                        vorlesungen.remove(index);
+                        break commandloop;
+                    }
+                }
+            }
+        }
+        else{
+            System.out.println("Vorlesung gibt es nicht!");
+        }
+
+    }
+
+    public void showVorlesungen(){
+        String input = "";
+        commandloop:
+        while(true){
+            System.out.println("\nWelches Element?\n[0]Zurück");
+            vorlesungen.forEach(v -> {
+                System.out.println("["+(vorlesungen.indexOf(v)+1)+"]"+((Vorlesung)v).getName());
+            });
+            input = scanner.nextLine();
+            if(Objects.equals(input, "0")){ break commandloop;}
+            elementCommands(Integer.parseInt(input)-1);
+        }
+    }
+
+    private void allCommands(){
+        System.out.println("[0]Zurück\n[1]Neue Vorlesung\n[2]Zeige Vorlesungen");
+    }
+
+    @Override
+    public void commandLoop(){
+        System.out.println("Stundenplan Konsole");
+        outerloop:
+        while(true){
+            System.out.println("Was willst du im Stundenplan machen?");
+            allCommands();
+            switch(scanner.nextLine()){
+                case "0" -> {break outerloop;}
+                case "1" -> newLesson();
+                case "2" -> showVorlesungen();
+                case "3" -> createTestSample();
+                default -> System.out.println("Kein gültiger Befehl!");
+
+            }
+        }
     }
 
 

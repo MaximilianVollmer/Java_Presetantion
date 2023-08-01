@@ -103,7 +103,7 @@ public class Reminder extends Events{
         //  System.out.println( LocalDateTime.now());
          //reminder_sleep( LocalDateTime.now());
 
-         Events test = new Events("test",LocalDateTime.parse("20/07/2023 19:52" , DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")), LocalDateTime.parse("20/07/2023 19:00" , DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")), "high");
+         Events test = new Events("test",LocalDateTime.parse("27/07/2023 19:52" , DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")), LocalDateTime.parse("20/07/2023 19:00" , DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")), "high");
         // reminder_sleep();
 
         // System.out.println("yyyy/MM/dd HH:mm:ss-> "+dtf.format(LocalDateTime.now()));

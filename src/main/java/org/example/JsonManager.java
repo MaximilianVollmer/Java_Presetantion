@@ -47,7 +47,7 @@ public class JsonManager {
                     System.out.println(e);
                 }
                     JSONObject table = (JSONObject) test.get(tableName);
-                    String name = (String) table.get("value");
+                    String name = (String) table.get("name");
                     System.out.println(name);
                 }catch(Exception e){}
             });
