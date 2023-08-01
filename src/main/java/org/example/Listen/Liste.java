@@ -24,7 +24,6 @@ public class Liste{
     public ArrayList<Listentyp> Kontaktbuch = new ArrayList<Listentyp>();
     public ArrayList<Listentyp> Notizbuch = new ArrayList<Listentyp>();
 
-
     /**
      * Connects to the JSONManager.java to get all informations from the json. 
      */
@@ -98,6 +97,14 @@ public class Liste{
         Listentyp item = new Notizen(name, description);
         this.Notizbuch.add(item);
     }
+
+    /**
+     * Returns all informations and updates or deletes the entry, if wanted.
+     * @param listen
+     * @param list
+     * @param index
+     * @param listname
+     */
     public void update_entry(Liste listen, ArrayList<Listentyp> list, int index, String listname){
         System.out.println("[0] Zurück\n[1] Löschen\n[2] Bearbeiten");
         System.out.println(list.get(index).all_informations());
@@ -125,7 +132,8 @@ public class Liste{
      * @param listname
      */
 
-    private void scanner_case(Liste listen, ArrayList<Listentyp> list, String listname){
+    public void scanner_case(Liste listen, ArrayList<Listentyp> list, String listname){
+
         if(list != null && list.size()!=0){
             System.out.println("[0] Zurück");
             for(int index = 0; index<list.size(); index++){
@@ -171,6 +179,23 @@ public class Liste{
         listen.main_func(listen);   
     }
   
+    /**
+     * Asks for the corresponding attributes 
+     * and creates a new entry in the corresponding list.
+     * @param listen
+     * @param list
+     * @param listname
+     */
+    public void newEntry(Liste listen, ArrayList<Listentyp> list, String listname){
+        Scanner add_item = new Scanner(System.in);
+        switch(listname){
+            case "Einkaufsliste":
+                System.out.println("Name: ");
+                String item_name = add_item.next();
+
+                System.out.println("Anzahl: ");
+                Integer item_amount = add_item.nextInt();
+
     /**
      * Asks for the corresponding attributes 
      * and creates a new entry in the corresponding list.
@@ -237,6 +262,7 @@ public class Liste{
      * Converts the lists to JSONArrays of Strings.
      * Sends them to the JsonManager.java to save them.
      */
+
     public void saveChanges(){
         System.out.println(Einkaufsliste);
         JSONArray shopping_list = new JSONArray();
