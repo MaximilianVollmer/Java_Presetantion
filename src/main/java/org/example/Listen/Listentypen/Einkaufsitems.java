@@ -7,6 +7,11 @@ public class Einkaufsitems extends Listentyp{
     public String category;
 
     public Einkaufsitems(String name, int amount, String description, String category){
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 03a3702d5344840ee5e60eaf0c1083e38b1ce899
         this.name = name;
         this.amount = amount;
         this.description = description;

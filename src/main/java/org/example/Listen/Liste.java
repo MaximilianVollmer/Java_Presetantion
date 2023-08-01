@@ -20,7 +20,6 @@ public class Liste{
 
 
     public ArrayList<Listentyp> Einkaufsliste= new ArrayList<Listentyp>();
-
     public ArrayList<Listentyp> Aufgabenliste = new ArrayList<Listentyp>();
     public ArrayList<Listentyp> Kontaktbuch = new ArrayList<Listentyp>();
     public ArrayList<Listentyp> Notizbuch = new ArrayList<Listentyp>();
@@ -132,7 +131,9 @@ public class Liste{
      * @param list
      * @param listname
      */
+
     public void scanner_case(Liste listen, ArrayList<Listentyp> list, String listname){
+
         if(list != null && list.size()!=0){
             System.out.println("[0] Zurück");
             for(int index = 0; index<list.size(); index++){
@@ -177,6 +178,23 @@ public class Liste{
         }
         listen.main_func(listen);   
     }
+  
+    /**
+     * Asks for the corresponding attributes 
+     * and creates a new entry in the corresponding list.
+     * @param listen
+     * @param list
+     * @param listname
+     */
+    public void newEntry(Liste listen, ArrayList<Listentyp> list, String listname){
+        Scanner add_item = new Scanner(System.in);
+        switch(listname){
+            case "Einkaufsliste":
+                System.out.println("Name: ");
+                String item_name = add_item.next();
+
+                System.out.println("Anzahl: ");
+                Integer item_amount = add_item.nextInt();
 
     /**
      * Asks for the corresponding attributes 
@@ -244,6 +262,7 @@ public class Liste{
      * Converts the lists to JSONArrays of Strings.
      * Sends them to the JsonManager.java to save them.
      */
+
     public void saveChanges(){
         System.out.println(Einkaufsliste);
         JSONArray shopping_list = new JSONArray();
@@ -288,6 +307,7 @@ public class Liste{
         }
     }
 
+
     /**
      * Asks client wich list he wants to open.
      * Connects to scanner_case with the needed parameter.
@@ -297,12 +317,15 @@ public class Liste{
         System.out.println("[0] Zurück\n[1] Öffne die Einkaufsliste\n[2] Öffne Aufgabenliste\n[3] Öffne Kontaktbuch \n[4] Öffne Notizbuch");
 
         Scanner new_scan = new Scanner(System.in);
+
+        boolean exit = false;
         try{
-            while(new_scan.hasNextLine()){ 
+            while(!exit){
                 String new_action = new_scan.nextLine();
                 switch(String.valueOf(new_action)){
                     case "0":
-                        new_scan.close();
+                        list.saveChanges(list);
+                        exit = true;
                         break;
                     case "1":
                         list.scanner_case(list, list.Einkaufsliste,"Einkaufsliste");
@@ -325,6 +348,10 @@ public class Liste{
             list.saveChanges();
         }
 
+    }
+
+    public void commandLoop(){
+        main_func(this);
     }
     
     public static void main(String[] args) {

@@ -35,6 +35,10 @@ public class Vorlesung extends KalenderElement {
         date = generateTime();
         super.name = name;
     }
+    public Vorlesung(String name, LocalDateTime date){
+        this.name = name;
+        this.date = date;
+    }
 
     public void length(int minutes){
         int hours = minutes/60;
@@ -51,6 +55,13 @@ public class Vorlesung extends KalenderElement {
 
     public String getName(){
         return this.name;
+    }
+    public void setName(String name){
+        this.name = name;
+    }
+
+    public String getDozent(){
+        return dozent;
     }
 
     public String getEndDate(){
