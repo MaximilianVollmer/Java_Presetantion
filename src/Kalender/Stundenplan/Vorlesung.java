@@ -1,6 +1,14 @@
 package Kalender.Stundenplan;
 
 import Kalender.KalenderElements.KalenderElement;
+
+import java.util.Date;
+
+public class Vorlesung extends KalenderElement {
+    public Vorlesung(String name, Date date){
+
+    }
+
 import org.example.Generators.TimeGenerator;
 
 import java.time.DayOfWeek;
@@ -59,4 +67,5 @@ public class Vorlesung extends KalenderElement {
             Arrays.stream(DayOfWeek.values()).collect(
                     Collectors.toMap(
                             d -> d.getDisplayName(TextStyle.FULL, Locale.GERMAN), d -> d));
+
 }

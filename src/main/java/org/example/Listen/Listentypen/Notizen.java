@@ -7,8 +7,23 @@ public class Notizen extends Listentyp{
         this.name = name;
         this.informations = informations;
     }
+
+    public String get_informations(){
+        String info = "Name: "+this.name;
+        return info;
+    }
     public String all_informations(){
         String info = "Name: "+this.name +"\nInhalt: "+this.informations;
         return info;
+    }
+    public String get_info(String key){
+        switch(key){
+            case "name":
+                return this.name;
+            case "informations":
+                return this.informations;
+            default:
+                return "";
+        }
     }
 }

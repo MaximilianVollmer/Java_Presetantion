@@ -3,6 +3,18 @@ package Kalender.Stundenplan;
 import Kalender.Kalender;
 import Kalender.KalenderElements.KalenderElement;
 
+
+import java.util.ArrayList;
+import java.util.Date;
+
+public class Stundenplan extends Kalender {
+    private ArrayList<KalenderElement> vorlesungen = new ArrayList<KalenderElement>();
+
+    public KalenderElement newLesson(String fach, Date date){
+
+        return null;
+    }
+
 import java.util.*;
 
 public class Stundenplan extends Kalender {
@@ -51,5 +63,6 @@ public class Stundenplan extends Kalender {
         System.out.println(stundenplan.getVorlesung(0).getEndDate());
         System.out.println(stundenplan.getVorlesung(0).getName());
     }
+
 
 }
