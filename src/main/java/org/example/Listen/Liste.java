@@ -20,7 +20,6 @@ public class Liste{
 
 
     public ArrayList<Listentyp> Einkaufsliste= new ArrayList<Listentyp>();
-
     public ArrayList<Listentyp> Aufgabenliste = new ArrayList<Listentyp>();
     public ArrayList<Listentyp> Kontaktbuch = new ArrayList<Listentyp>();
     public ArrayList<Listentyp> Notizbuch = new ArrayList<Listentyp>();
@@ -98,14 +97,6 @@ public class Liste{
         Listentyp item = new Notizen(name, description);
         this.Notizbuch.add(item);
     }
-
-    /**
-     * Returns all informations and updates or deletes the entry, if wanted.
-     * @param listen
-     * @param list
-     * @param index
-     * @param listname
-     */
     public void update_entry(Liste listen, ArrayList<Listentyp> list, int index, String listname){
         System.out.println("[0] Zurück\n[1] Löschen\n[2] Bearbeiten");
         System.out.println(list.get(index).all_informations());
@@ -177,7 +168,7 @@ public class Liste{
         }
         listen.main_func(listen);   
     }
-
+  
     /**
      * Asks for the corresponding attributes 
      * and creates a new entry in the corresponding list.
@@ -287,6 +278,7 @@ public class Liste{
             e.printStackTrace();
         }
     }
+
 
     /**
      * Asks client wich list he wants to open.

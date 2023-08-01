@@ -1,10 +1,19 @@
 package org.example;
 
+
+import org.example.Listen.Listentypen.Einkaufsitems;
+import org.example.Listen.Listentypen.Listentyp;
+
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import java.io.File;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -37,10 +46,15 @@ public class JsonManager {
                 }catch(Exception e){
                     System.out.println(e);
                 }
+                    JSONObject table = (JSONObject) test.get(tableName);
+                    String name = (String) table.get("value");
+                    System.out.println(name);
+                }catch(Exception e){}
             });
         }
         return value;
     }
+
     /**
      * Deletes the old file and creates the new file with the new_content in it.
      * @param file_path {String} ".\\Data\\dataname.json"
