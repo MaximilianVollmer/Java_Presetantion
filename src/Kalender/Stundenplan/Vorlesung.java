@@ -4,11 +4,6 @@ import Kalender.KalenderElements.KalenderElement;
 
 import java.util.Date;
 
-public class Vorlesung extends KalenderElement {
-    public Vorlesung(String name, Date date){
-
-    }
-
 import org.example.Generators.TimeGenerator;
 
 import java.time.DayOfWeek;

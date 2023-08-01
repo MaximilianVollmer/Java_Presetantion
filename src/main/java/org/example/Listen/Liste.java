@@ -181,23 +181,6 @@ public class Liste{
         }
         listen.main_func(listen);   
     }
-  
-    /**
-     * Asks for the corresponding attributes 
-     * and creates a new entry in the corresponding list.
-     * @param listen
-     * @param list
-     * @param listname
-     */
-    public void newEntry(Liste listen, ArrayList<Listentyp> list, String listname){
-        Scanner add_item = new Scanner(System.in);
-        switch(listname){
-            case "Einkaufsliste":
-                System.out.println("Name: ");
-                String item_name = add_item.next();
-
-                System.out.println("Anzahl: ");
-                Integer item_amount = add_item.nextInt();
 
     /**
      * Asks for the corresponding attributes 
@@ -327,7 +310,7 @@ public class Liste{
                 String new_action = new_scan.nextLine();
                 switch(String.valueOf(new_action)){
                     case "0":
-                        list.saveChanges(list);
+                        list.saveChanges();
                         exit = true;
                         break;
                     case "1":
