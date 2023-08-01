@@ -11,7 +11,7 @@ import java.util.Scanner;
 public class Main {
 
     private static void availableCommands(){
-        System.out.println("[0]Verlassen\n[1]Öffne Stundenplan\n[2]Öffne Liste\n[3]NICHT ÖFFNEN TEST");
+        System.out.println("[0]Verlassen\n[1]Öffne Stundenplan\n[2]Öffne Liste\n[3]Öffne Kalender/Termine");
     }
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);

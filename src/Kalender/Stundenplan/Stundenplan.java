@@ -9,7 +9,7 @@ import java.util.*;
 public class Stundenplan extends Kalender {
 
     Scanner scanner = new Scanner(System.in).useLocale(Locale.US);
-    private ArrayList<KalenderElement> vorlesungen = new ArrayList<>();
+    private final ArrayList<KalenderElement> vorlesungen = new ArrayList<>();
 
 
     public void newLesson(){
@@ -53,24 +53,31 @@ public class Stundenplan extends Kalender {
 
     public void printVorlesung(int index){
             System.out.println("\n"+index);
-            System.out.println(vorlesungen.get(index).getName());
-            System.out.println(vorlesungen.get(index).getDozent());
-            System.out.println(vorlesungen.get(index).getDate()+"\n");
+            System.out.println(((Vorlesung)vorlesungen.get(index)).getName());
+            System.out.println(((Vorlesung)vorlesungen.get(index)).getDozent());
+            System.out.println(((Vorlesung)vorlesungen.get(index)).getDate()+"\n");
     }
 
     private void elementCommands(int index){
-        commandloop:
-        while(true) {
-            System.out.println("[0]Zurück\n[1]Anzeigen\n[2]Bearbeiten\n[3]Löschen");
-            switch(scanner.nextLine()){
-                case "0" -> {break commandloop;}
-                case "1" -> printVorlesung(index);
-                case "2" -> System.out.println("WIP"); //TODO: Method in Vorlesung to keep name and edit other parameters or select which parameters to edit
-                case "3" -> {
-                    vorlesungen.remove(index);
-                    break commandloop;
+        if(index < vorlesungen.size()) {
+            commandloop:
+            while (true) {
+                System.out.println("[0]Zurück\n[1]Anzeigen\n[2]Bearbeiten\n[3]Löschen");
+                switch (scanner.nextLine()) {
+                    case "0" -> {
+                        break commandloop;
+                    }
+                    case "1" -> printVorlesung(index);
+                    case "2" -> System.out.println("WIP"); //TODO: Method in Vorlesung to keep name and edit other parameters or select which parameters to edit
+                    case "3" -> {
+                        vorlesungen.remove(index);
+                        break commandloop;
+                    }
                 }
             }
+        }
+        else{
+            System.out.println("Vorlesung gibt es nicht!");
         }
 
     }
@@ -79,11 +86,13 @@ public class Stundenplan extends Kalender {
         String input = "";
         commandloop:
         while(true){
-            System.out.println("\n[0]Zurück");
+            System.out.println("\nWelches Element?\n[0]Zurück");
             vorlesungen.forEach(v -> {
-                System.out.println("["+(vorlesungen.indexOf(v)+1)+"]"+v.getName());
+                System.out.println("["+(vorlesungen.indexOf(v)+1)+"]"+((Vorlesung)v).getName());
             });
             input = scanner.nextLine();
+            if(Objects.equals(input, "0")){ break commandloop;}
+            elementCommands(Integer.parseInt(input)-1);
         }
     }
 
