@@ -17,4 +17,16 @@ public class Aufgaben extends Listentyp{
         String info = "Name: "+this.name +"\nWichtigkeit: "+this.importance+"\nBeschreibung: "+this.description;
         return info;
     }
+    public String get_info(String key){
+        switch(key){
+            case "name":
+                return this.name;
+            case "importance":
+                return String.valueOf(this.importance);
+            case "description":
+                return this.description;
+            default:
+                return "";
+        }
+    }
 }
