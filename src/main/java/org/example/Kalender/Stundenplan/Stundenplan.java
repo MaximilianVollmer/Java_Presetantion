@@ -1,7 +1,7 @@
-package Kalender.Stundenplan;
+package org.example.Kalender.Stundenplan;
 
-import Kalender.Kalender;
-import Kalender.KalenderElements.KalenderElement;
+import org.example.Kalender.Kalender;
+import org.example.Kalender.KalenderElements.KalenderElement;
 
 import java.util.ArrayList;
 import java.util.Date;

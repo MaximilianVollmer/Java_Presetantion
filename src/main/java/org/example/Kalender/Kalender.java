@@ -1,12 +1,11 @@
-package Kalender;
+package org.example.Kalender;
 
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
 
-import Kalender.KalenderElements.*;
-import Kalender.Stundenplan.Vorlesung;
 import org.example.Events.Events;
+import org.example.Kalender.KalenderElements.KalenderElement;
 
 public class Kalender{
     private ArrayList<KalenderElement> kalenderList = new ArrayList<KalenderElement>();

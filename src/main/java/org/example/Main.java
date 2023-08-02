@@ -1,11 +1,9 @@
 package org.example;
 
-
-import Kalender.Kalender;
-import Kalender.Stundenplan.Stundenplan;
+import org.example.Kalender.Kalender;
+import org.example.Kalender.Stundenplan.Stundenplan;
 import org.example.Listen.Liste;
 
-import java.util.Objects;
 import java.util.Scanner;
 
 public class Main {

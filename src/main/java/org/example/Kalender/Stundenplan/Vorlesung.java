@@ -1,6 +1,6 @@
-package Kalender.Stundenplan;
+package org.example.Kalender.Stundenplan;
 
-import Kalender.KalenderElements.KalenderElement;
+import org.example.Kalender.KalenderElements.KalenderElement;
 
 import java.util.Date;
 
