@@ -14,9 +14,7 @@ public class Reminder extends Events{
   
     public Reminder(String event_name, LocalDateTime event_start, LocalDateTime event_end, String event_priority) {
         super(event_name, event_start, event_end, event_priority);
-        //TODO Auto-generated constructor stub
-       // You can also convert the difference to minutes, hours, or any other time unit as needed.
-        // For example, to get the difference in minutes:
+
         long diffInMinutes = Duration.between(LocalDateTime.now(), event_start).toMillis();
         Reminder this_old = this;
         int diffInMinutesAsInt = Math.toIntExact(diffInMinutes);
@@ -94,23 +92,5 @@ public class Reminder extends Events{
                 e.printStackTrace();
             }
         }
-
-//syso
-       
     }
-
-   public static void main(String[] args) {
-        //  System.out.println( LocalDateTime.now());
-         //reminder_sleep( LocalDateTime.now());
-
-         Events test = new Events("test",LocalDateTime.parse("27/07/2023 19:52" , DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")), LocalDateTime.parse("20/07/2023 19:00" , DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")), "high");
-        // reminder_sleep();
-
-        // System.out.println("yyyy/MM/dd HH:mm:ss-> "+dtf.format(LocalDateTime.now()));
-           Events reminder =  new Reminder(test.event_name, test.event_start, test.event_end, test.event_priority);
-
-        reminder_sleep(reminder.event_start, reminder);
-        
-        }
-
-    }
+}

@@ -68,10 +68,4 @@ public class Vorlesung extends KalenderElement {
 
         return TimeGenerator.generateWeekdayTime();
     }
-
-    private static final Map<String, DayOfWeek> germanDaysOfWeek =
-            Arrays.stream(DayOfWeek.values()).collect(
-                    Collectors.toMap(
-                            d -> d.getDisplayName(TextStyle.FULL, Locale.GERMAN), d -> d));
-
 }
