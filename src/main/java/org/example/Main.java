@@ -6,6 +6,12 @@ import org.example.Listen.Liste;
 
 import java.util.Scanner;
 
+/**
+ * @author Hasan Abouorra, Markus Franzen, Maximilian Vollmer.
+ * @version 1.0
+ * @category planer
+ * @description Dies ist eine Konsolen-App, mit der man Kalender, Listen, und Stundenpläne erstellen kann.
+ */
 public class Main {
 
     private static void availableCommands(){
