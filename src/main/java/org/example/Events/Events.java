@@ -31,18 +31,13 @@ public Events(String event_name, LocalDateTime event_start, LocalDateTime event_
         String eventName = inputScanner.nextLine();
         
 LocalDateTime Zeit = TimeGenerator.generateDateTime();
-       /*   System.out.println("Geben Sie den Event-Start ein : ");
-        String eventStart = inputScanner.nextLine();
-        LocalDateTime startDateTime = LocalDateTime.parse(eventStart);*/
 
         System.out.println("Geben Sie das Event-Ende ein  ");
-        // String eventEnd = inputScanner.nextLine();
         LocalDateTime endDateTime = TimeGenerator.generateDateTime();
 
         System.out.println("Geben Sie die Event-Priorität ein: ");
         String eventPriority = inputScanner.nextLine();
 
-        //return new Events(eventName, startDateTime, endDateTime, eventPriority);
         return new Events(eventName,Zeit,endDateTime,eventPriority);
     }
 
@@ -90,16 +85,6 @@ public void update_Event(String AttributName, String parameter) {
             System.out.println("An error occurred: Incorrect attribute name.");
             break;
     }
-}
-
-
-public static void main(String[] args) {
-    // create_Event()
-    event_info(create_Event());
-    // Events test = new Reminder(null, null, null, null);
-    // System.out.println());
-
-    //Reminder_info()
 }
 // Rest of the code stays unchanged
 }

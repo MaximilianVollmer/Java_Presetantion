@@ -41,9 +41,7 @@ public class JsonManager {
             a.forEach( object -> {
                 JSONObject test = (JSONObject) object;
                 try{
-
                     value.add(test);
-                    
                 }catch(Exception e){
                     System.out.println(e);
                 }
@@ -59,8 +57,9 @@ public class JsonManager {
      * @param new_content {String} "[{"attribute1":"1","attribute2":"Test1"},{"attribute1":"2","attribute2":"Test2"}]"
      * @throws IOException
      */
-    public static void test(String file_path, String new_content) throws IOException{
+    public static void saveJson(String file_path, String new_content) throws IOException{
         try {
+            System.out.println("Wird gespeichert...");
             File file = new File(file_path);
             file.delete();
             if (file.createNewFile()) {

@@ -41,7 +41,7 @@ public class Liste{
                 this.Einkaufsliste.add(item);
             });
         }catch (Exception e) {
-            // System.out.println(e);
+            System.out.println(e);
         }
         try{
             ArrayList<JSONObject> task_list = JsonManager.readJson(".\\Data\\TaskList.json");
@@ -53,7 +53,7 @@ public class Liste{
                 this.Aufgabenliste.add(task);
             });
         }catch (Exception e) {
-            // System.out.println(e);
+            System.out.println(e);
         }
         try{
             ArrayList<JSONObject> note_book = JsonManager.readJson(".\\Data\\NoteBook.json");
@@ -64,7 +64,7 @@ public class Liste{
                 this.Notizbuch.add(note);
             });
         }catch (Exception e) {
-            // System.out.println(e);
+            System.out.println(e);
         }
         try{
             ArrayList<JSONObject> contact_book = JsonManager.readJson(".\\Data\\Contactbook.json");
@@ -75,7 +75,7 @@ public class Liste{
                 this.Kontaktbuch.add(contact);
             });
         } catch (Exception e) {
-            // System.out.println(e);
+            System.out.println(e);
         }
     }
 
@@ -120,7 +120,7 @@ public class Liste{
                 listen.scanner_case(listen, list, listname);
                 break;
             case"2":
-                //Muss ich noch gucken, wie ich das mache
+                System.out.println("WIP");
                 listen.update_entry(listen, list, index, listname);
         }  
     }
@@ -132,11 +132,7 @@ public class Liste{
      * @param list
      * @param listname
      */
-
-
     public void scanner_case(Liste listen, ArrayList<Listentyp> list, String listname){
-
-
         if(list != null && list.size()!=0){
             System.out.println("[0] Zurück");
             for(int index = 0; index<list.size(); index++){
@@ -150,8 +146,7 @@ public class Liste{
             String action_one = scan_one.nextLine();
             Integer index = Integer.parseInt(String.valueOf(action_one))-1;
             switch(index){
-                case -1:              
-                    listen.main_func(listen);      
+                case -1:
                     break;
             }
             if(index == list.size()){
@@ -169,7 +164,6 @@ public class Liste{
 
             switch(String.valueOf(new_line)){
                 case "0":
-                    listen.main_func(listen);
                     break;
                 case "1":
                     listen.newEntry(listen, list, listname);
@@ -179,7 +173,6 @@ public class Liste{
                     listen.scanner_case(listen, list, listname);
             }         
         }
-        listen.main_func(listen);   
     }
 
     /**
@@ -194,46 +187,46 @@ public class Liste{
         switch(listname){
             case "Einkaufsliste":
                 System.out.println("Name: ");
-                String item_name = add_item.next();
+                String item_name = add_item.nextLine();
 
                 System.out.println("Anzahl: ");
                 Integer item_amount = add_item.nextInt();
-
+                add_item.nextLine();
                 System.out.println("Beschreibung: ");
-                String item_description = add_item.next();
+                String item_description = add_item.nextLine();
 
                 System.out.println("Kategorie: ");
-                String item_category = add_item.next();
+                String item_category = add_item.nextLine();
 
                 listen.newItem(item_name, item_amount, item_description, item_category);
                 break;
             case "Aufgabenliste":
                 System.out.println("Name: ");
-                String task_name = add_item.next();
+                String task_name = add_item.nextLine();
 
                 System.out.println("Wichtigkeit: ");
                 Integer task_importance = add_item.nextInt();
-
+                add_item.nextLine();
                 System.out.println("Beschreibung: ");
-                String task_description = add_item.next();
+                String task_description = add_item.nextLine();
                 
                 listen.newTask(task_name, task_importance, task_description);
                 break;
             case "Kontaktbuch":
                 System.out.println("Vor- und Nachname ");
-                String contact_name = add_item.next();
+                String contact_name = add_item.nextLine();
 
                 System.out.println("Telefonnummer: ");
                 Integer contact_number = add_item.nextInt();
-                
+                add_item.nextLine();
                 listen.newContact(contact_name, contact_number);
                 break;
             case "Notizbuch":
                 System.out.println("Name: ");
-                String note_name = add_item.next();
+                String note_name = add_item.nextLine();
 
                 System.out.println("Beschreibung: ");
-                String note_description = add_item.next();
+                String note_description = add_item.nextLine();
                 
                 listen.newNote(note_name, note_description);
                 break;
@@ -241,16 +234,14 @@ public class Liste{
                 System.out.println("Das sollte eigentlich nie passieren.");
                 listen.scanner_case(listen, list, listname);             
                 break;
-        }  
+        }
     }
 
     /**
      * Converts the lists to JSONArrays of Strings.
      * Sends them to the JsonManager.java to save them.
      */
-
     public void saveChanges(){
-        System.out.println(Einkaufsliste);
         JSONArray shopping_list = new JSONArray();
         JSONArray contact_book = new JSONArray();
         JSONArray note_book = new JSONArray();
@@ -284,13 +275,14 @@ public class Liste{
             note_book.add(placeholer);
         });
         try {
-            JsonManager.test(".\\Data\\ShoppingList.json",shopping_list.toJSONString());
-            JsonManager.test(".\\Data\\ContactBook.json",contact_book.toJSONString());
-            JsonManager.test(".\\Data\\TaskList.json",task_list.toJSONString());
-            JsonManager.test(".\\Data\\NoteBook.json",note_book.toJSONString());
+            JsonManager.saveJson(".\\Data\\ShoppingList.json",shopping_list.toJSONString());
+            JsonManager.saveJson(".\\Data\\ContactBook.json",contact_book.toJSONString());
+            JsonManager.saveJson(".\\Data\\TaskList.json",task_list.toJSONString());
+            JsonManager.saveJson(".\\Data\\NoteBook.json",note_book.toJSONString());
         } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
 
 
@@ -300,13 +292,11 @@ public class Liste{
      * @param list {type: Liste}
      */
     public void main_func(Liste list){
-        System.out.println("[0] Zurück\n[1] Öffne die Einkaufsliste\n[2] Öffne Aufgabenliste\n[3] Öffne Kontaktbuch \n[4] Öffne Notizbuch");
-
         Scanner new_scan = new Scanner(System.in);
-
         boolean exit = false;
         try{
             while(!exit){
+                System.out.println("[0] Zurück\n[1] Öffne die Einkaufsliste\n[2] Öffne Aufgabenliste\n[3] Öffne Kontaktbuch \n[4] Öffne Notizbuch");
                 String new_action = new_scan.nextLine();
                 switch(String.valueOf(new_action)){
                     case "0":
@@ -327,13 +317,11 @@ public class Liste{
                         break;
                     default:
                         System.out.println("Bitte geben sie nur einen der oben genannten Werte ein.");
-                        list.main_func(list);
                 }
             }
         }catch (Exception e) {
-            list.saveChanges();
+            //list.saveChanges();
         }
-
     }
 
     public void commandLoop(){

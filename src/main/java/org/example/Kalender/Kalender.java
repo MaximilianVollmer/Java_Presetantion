@@ -54,7 +54,7 @@ public class Kalender{
             }
         }
         else{
-            System.out.println("Vorlesung gibt es nicht!");
+            System.out.println("Eintrag gibt es nicht!");
         }
     }
 
