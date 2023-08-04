@@ -18,7 +18,7 @@ public class Reminder extends Events{
         // For example, to get the difference in minutes:
         long diffInMinutes = Duration.between(LocalDateTime.now(), event_start).toMillis();
         Reminder this_old = this;
-
+        //int diffInMinutesAsInt = Math.toIntExact(diffInMinutes);
         System.out.println(diffInMinutes);
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
