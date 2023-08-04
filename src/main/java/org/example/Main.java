@@ -15,7 +15,7 @@ import java.util.Scanner;
 public class Main {
 
     private static void availableCommands(){
-        System.out.println("[0]Verlassen\n[1]Öffne Stundenplan\n[2]Öffne Liste\n[3]Öffne Kalender/Termine");
+        System.out.println("[0]Verlassen\n[1]Öffne Stundenplan\n[2]Öffne Kalender/Termine\n[3]Öffne Liste");
     }
 
     public static void main(String[] args) {
@@ -33,8 +33,8 @@ public class Main {
             switch(input){
                 case "0" -> {break outerloop;}
                 case "1" -> stundenplan.commandLoop();
-                case "2" -> liste.main_func(liste);
-                case "3" -> kalender.commandLoop();
+                case "2" -> kalender.commandLoop();
+                case "3" -> liste.main_func(liste);
                 default -> System.out.println("Unbekannter Befehl");
             }
 

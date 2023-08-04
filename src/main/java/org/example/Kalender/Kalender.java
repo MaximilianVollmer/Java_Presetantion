@@ -40,9 +40,9 @@ public class Kalender{
                     }
                     case "1" -> Events.event_info(((Events)kalenderList.get(index)));
                     case "2" -> {
-                        System.out.println("Welchen Parameter möchtest du ändern?");
+                        System.out.println("Welche Eigenschaft möchtest du ändern?");
                         String attribute = scanner.nextLine();
-                        System.out.println("Zu welchen Wert?");
+                        System.out.println("Zu welchem Wert?");
                         String parameter = scanner.nextLine();
                         ((Events)kalenderList.get(index)).update_Event(attribute, parameter);
                     }

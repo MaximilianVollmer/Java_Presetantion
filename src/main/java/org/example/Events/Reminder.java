@@ -18,8 +18,8 @@ public class Reminder extends Events{
         // For example, to get the difference in minutes:
         long diffInMinutes = Duration.between(LocalDateTime.now(), event_start).toMillis();
         Reminder this_old = this;
-        int diffInMinutesAsInt = Math.toIntExact(diffInMinutes);
-        System.out.println(diffInMinutesAsInt);
+
+        System.out.println(diffInMinutes);
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
@@ -27,7 +27,7 @@ public class Reminder extends Events{
               //  Reminder.Reminder_info(this_old);
               Reminder.Reminder_sleep( event_start, this_old);
             }
-        }, diffInMinutesAsInt, 60000);
+        }, diffInMinutes, 60000);
 
     }
 
@@ -73,7 +73,7 @@ public class Reminder extends Events{
         }
 
         try {
-            Thread.sleep(1 * 60 * 1000); // Warte 5 Minuten (in Millisekunden)
+            Thread.sleep(5 * 60 * 1000); // Warte 5 Minuten (in Millisekunden)
             Reminder_sleep(time, rem);
         } catch (InterruptedException e) {
             e.printStackTrace();
